@@ -1,6 +1,6 @@
-# the-ashmoor-case
+# The Ashmoor Case
 
-The Ashmoor Case is my first game development project, a personal journey into the world of game creation.
+The Ashmoor Case is my first game development project. A personal journey into the world of game creation.
 I’ve always wanted to learn how games are made, and this project marks the beginning of that dream.
 
 Inspired by one of my favorite films, Shutter Island, The Ashmoor Case will explore mystery, psychological tension, and atmosphere — combining cinematic storytelling with interactive gameplay.

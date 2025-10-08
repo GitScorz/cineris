@@ -5,17 +5,21 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>DLL")
 
-add_executable(the_ashmoor_case 
-  src/main.cpp
-  src/glad.c
+file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS src/*.cpp src/*.c)
+add_executable(the_ashmoor_case ${SOURCES})
+
+target_include_directories(the_ashmoor_case PRIVATE
+  ${CMAKE_SOURCE_DIR}/src
+  ${CMAKE_SOURCE_DIR}/dependencies/include
 )
 
-file(COPY shaders DESTINATION ${CMAKE_BINARY_DIR})
+target_link_directories(the_ashmoor_case PRIVATE
+  ${CMAKE_SOURCE_DIR}/dependencies/lib
+)
 
-target_include_directories(the_ashmoor_case PRIVATE dependencies/include)
-
-target_link_directories(the_ashmoor_case PRIVATE dependencies/lib)
 target_link_libraries(the_ashmoor_case PRIVATE glfw3)
+
+file(COPY shaders DESTINATION ${CMAKE_BINARY_DIR})
 
 if(WIN32)
   target_link_libraries(the_ashmoor_case PRIVATE opengl32)
