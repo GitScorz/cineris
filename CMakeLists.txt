@@ -10,6 +10,8 @@ add_executable(the_ashmoor_case
   src/glad.c
 )
 
+file(COPY shaders DESTINATION ${CMAKE_BINARY_DIR})
+
 target_include_directories(the_ashmoor_case PRIVATE dependencies/include)
 
 target_link_directories(the_ashmoor_case PRIVATE dependencies/lib)
