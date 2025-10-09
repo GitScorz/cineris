@@ -42,3 +42,6 @@
 
 # build folder
 build
+
+# mac stuff
+.DS_Store

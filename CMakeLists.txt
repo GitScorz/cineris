@@ -6,6 +6,9 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>DLL")
 
 file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS src/*.cpp src/*.c)
+
+list(APPEND SOURCES ${CMAKE_SOURCE_DIR}/dependencies/include/glad/glad.c)
+
 add_executable(the_ashmoor_case ${SOURCES})
 
 target_include_directories(the_ashmoor_case PRIVATE
