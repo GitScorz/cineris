@@ -5,7 +5,7 @@ void framebuffer_size_callback(GLFWwindow *window, int width, int height){
 }
 
   Window::Window(int w, int h, const std::string &t)
-      : m_Width(w), m_Height(h), m_Title(t)
+      : m_iWidth(w), m_iHeight(h), m_Title(t)
   {
     if (!glfwInit())
     {
@@ -46,4 +46,22 @@ void Window::update() {
 
 bool Window::shouldClose() const {
   return glfwWindowShouldClose(m_Handle);
+}
+
+void Window::updateFPS() {
+  double currentTime = glfwGetTime();
+  m_iFrames++;
+
+  if (currentTime - m_dLastFrameTime >= 1.0)
+  {
+    double fps = double(m_iFrames) / (currentTime - m_dLastFrameTime);
+
+    std::stringstream ss;
+    ss << m_Title << " - FPS: " << std::fixed << std::setprecision(2) << fps;
+
+    glfwSetWindowTitle(m_Handle, ss.str().c_str());
+
+    m_iFrames = 0;
+    m_dLastFrameTime = currentTime;
+  }
 }
