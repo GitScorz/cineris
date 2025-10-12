@@ -1,4 +1,5 @@
 #include "engine.h"
+#include "debug.h"
 #include "../game/world.h"
 
 Engine::Engine() {
@@ -12,11 +13,13 @@ Engine::Engine() {
   }
 
   m_pCamera = new Camera(glm::vec3(0.0f, 0.0f, 3.0f));
+  m_pInputManager = new InputManager();
 }
 
 Engine::~Engine() {
   delete m_pWindow;
   delete m_pCamera;
+  delete m_pInputManager;
 }
 
 void Engine::run() {
@@ -27,6 +30,8 @@ void Engine::run() {
 
   World* pWorld = new World();
   pWorld->addObject(new GameObject(cubeMesh, basicShader, glm::vec3(0.0f, 0.0f, -2.0f)));
+
+  Debug::registerDebugBindings(m_pInputManager);
   
   while (!m_pWindow->shouldClose()) {
     glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
@@ -39,6 +44,7 @@ void Engine::run() {
     basicShader->setMat4("view", view);
     basicShader->setMat4("projection", projection);
 
+    m_pInputManager->processInput(m_pWindow->m_Handle);
     pWorld->draw();
     m_pWindow->update();
   }
