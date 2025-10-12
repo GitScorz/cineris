@@ -14,4 +14,5 @@ public:
   void draw();
 
   static Mesh* createCube();
+  static Mesh* createQuad(float fWidth = 1.0f, float fHeight = 1.0f);
 };

@@ -25,11 +25,10 @@ Engine::~Engine() {
 }
 
 void Engine::run() {
-  // just a test for now
-  Shader *basicShader = new Shader("../shaders/vertex.glsl", "../shaders/fragment.glsl");
-  Mesh *cubeMesh = Mesh::createCube();
+  Mesh *oceanMesh = Mesh::createQuad(100.0f, 100.0f);
+  Shader *oceanShader = new Shader("../shaders/ocean.vert", "../shaders/ocean.frag");
 
-  m_pWorld->addObject(new GameObject(cubeMesh, basicShader, glm::vec3(0.0f, 0.0f, -2.0f)));
+  m_pWorld->addObject(new GameObject(oceanMesh, oceanShader, glm::vec3(0.0f, 0.0f, 0.0f)));
 
   Debug::registerDebugBindings(m_pInputManager);
   
@@ -42,9 +41,11 @@ void Engine::run() {
     glm::mat4 view = m_pCamera->getViewMatrix();
     glm::mat4 projection = glm::perspective(glm::radians(70.0f), 1280.0f / 720.0f, 0.1f, 100.0f);
 
-    basicShader->use();
-    basicShader->setMat4("view", view);
-    basicShader->setMat4("projection", projection);
+    oceanShader->use();
+    oceanShader->setMat4("view", view);
+    oceanShader->setMat4("projection", projection);
+    oceanShader->setVec3("lightDir", glm::normalize(glm::vec3(-0.5f, -1.0f, -0.3f)));
+    oceanShader->setFloat("time", (float)glfwGetTime());
 
     m_pCamera->rotate(
       m_pInputManager->getMouseDeltaX() * m_pInputManager->m_fMouseSensitivity, 
@@ -55,9 +56,8 @@ void Engine::run() {
     m_pWorld->draw();
     m_pPlayer->update(m_dDeltaTime);
     m_pWindow->update();
+    m_pWindow->updateFPS();
   }
 
-  delete basicShader;
-  delete cubeMesh;
-  delete m_pWorld;
+  m_pWorld->clearObjects();
 }

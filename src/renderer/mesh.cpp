@@ -63,3 +63,22 @@ Mesh* Mesh::createCube() {
 
   return new Mesh(verts, inds);
 }
+
+Mesh* Mesh::createQuad(float fWidth, float fHeight) {
+  float w = fWidth / 2.0f;
+  float h = fHeight / 2.0f;
+
+  std::vector<float> verts = {
+    -w, 0.0f, -h, 
+    w, 0.0f, -h, 
+    w, 0.0f, h, 
+    -w, 0.0f, h
+  };
+
+  std::vector<unsigned int> inds = {
+    0, 1, 2,
+    2, 3, 0
+  };
+
+  return new Mesh(verts, inds);
+} 
