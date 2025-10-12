@@ -35,7 +35,6 @@ Mesh::~Mesh()
 void Mesh::draw()
 {
   glBindVertexArray(VAO);
-  std::cout << "[DEBUG] VAO: " << VAO << " indices: " << indices.size() << std::endl;
   glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
   glBindVertexArray(0);
 }
