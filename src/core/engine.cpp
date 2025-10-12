@@ -12,8 +12,9 @@ Engine::Engine() {
   }
 
   m_pCamera = new Camera(glm::vec3(0.0f, 0.0f, 3.0f));
-  m_pInputManager = new InputManager();
+  m_pInputManager = new InputManager(m_pWindow->m_Handle);
   m_pWorld = new World();
+  m_pPlayer = new Player(m_pCamera, m_pInputManager);
 }
 
 Engine::~Engine() {
@@ -33,6 +34,8 @@ void Engine::run() {
   Debug::registerDebugBindings(m_pInputManager);
   
   while (!m_pWindow->shouldClose()) {
+    m_dDeltaTime = calculateDeltaTime();
+
     glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -43,8 +46,14 @@ void Engine::run() {
     basicShader->setMat4("view", view);
     basicShader->setMat4("projection", projection);
 
-    m_pInputManager->processInput(m_pWindow->m_Handle);
+    m_pCamera->rotate(
+      m_pInputManager->getMouseDeltaX() * m_pInputManager->m_fMouseSensitivity, 
+      m_pInputManager->getMouseDeltaY() * m_pInputManager->m_fMouseSensitivity
+    );
+
+    m_pInputManager->processInput();
     m_pWorld->draw();
+    m_pPlayer->update(m_dDeltaTime);
     m_pWindow->update();
   }
 

@@ -31,6 +31,7 @@ void framebuffer_size_callback(GLFWwindow *window, int width, int height){
 
   glfwMakeContextCurrent(m_Handle);
   glfwSetFramebufferSizeCallback(m_Handle, framebuffer_size_callback);
+  glfwSetInputMode(m_Handle, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 }
 
 Window::~Window() {

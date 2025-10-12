@@ -9,5 +9,9 @@ namespace Debug
       bInWireframeMode = !bInWireframeMode;
       glPolygonMode(GL_FRONT_AND_BACK, bInWireframeMode ? GL_LINE : GL_FILL);
     });
+    
+    pInput->registerKeyBinding(GLFW_KEY_ESCAPE, [](){ 
+      glfwSetWindowShouldClose(glfwGetCurrentContext(), true);
+    });
   }
 }
