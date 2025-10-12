@@ -1,9 +1,8 @@
 #include "engine.h"
 #include "debug.h"
-#include "../game/world.h"
 
 Engine::Engine() {
-  m_pWindow = new Window(800, 600, "The Ashmoor Case");
+  m_pWindow = new Window(1200, 800, "The Ashmoor Case");
 
   if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
   {
@@ -14,22 +13,22 @@ Engine::Engine() {
 
   m_pCamera = new Camera(glm::vec3(0.0f, 0.0f, 3.0f));
   m_pInputManager = new InputManager();
+  m_pWorld = new World();
 }
 
 Engine::~Engine() {
   delete m_pWindow;
   delete m_pCamera;
   delete m_pInputManager;
+  delete m_pWorld;
 }
 
 void Engine::run() {
-  Shader* basicShader = new Shader("../shaders/vertex.glsl", "../shaders/fragment.glsl");
-
   // just a test for now
-  Mesh* cubeMesh = Mesh::createCube();
+  Shader *basicShader = new Shader("../shaders/vertex.glsl", "../shaders/fragment.glsl");
+  Mesh *cubeMesh = Mesh::createCube();
 
-  World* pWorld = new World();
-  pWorld->addObject(new GameObject(cubeMesh, basicShader, glm::vec3(0.0f, 0.0f, -2.0f)));
+  m_pWorld->addObject(new GameObject(cubeMesh, basicShader, glm::vec3(0.0f, 0.0f, -2.0f)));
 
   Debug::registerDebugBindings(m_pInputManager);
   
@@ -45,11 +44,11 @@ void Engine::run() {
     basicShader->setMat4("projection", projection);
 
     m_pInputManager->processInput(m_pWindow->m_Handle);
-    pWorld->draw();
+    m_pWorld->draw();
     m_pWindow->update();
   }
 
   delete basicShader;
   delete cubeMesh;
-  delete pWorld;
+  delete m_pWorld;
 }

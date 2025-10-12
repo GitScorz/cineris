@@ -21,7 +21,7 @@ void framebuffer_size_callback(GLFWwindow *window, int width, int height){
   glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 #endif
 
-  m_Handle = glfwCreateWindow(800, 600, "The Ashmoor Case", NULL, NULL);
+  m_Handle = glfwCreateWindow(w, h, "The Ashmoor Case", NULL, NULL);
   if (!m_Handle)
   {
     std::cout << "Failed to create GLFW window." << std::endl;
