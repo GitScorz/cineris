@@ -11,4 +11,5 @@ Inspired by one of my favorite films, Shutter Island, The Ashmoor Case will expl
 This project is both a learning experience and the foundation for a full game.
 I’m building everything from scratch using C++, OpenGL, and GLFW, to understand how rendering, shaders, and game architecture truly work.
 
-The vision for The Ashmoor Case is to capture a nostalgic, PS2-like tone - simple graphics, moody lighting, and that distinctive early-2000s feeling of unease and mystery that many of us grew up with.
+The goal for The Ashmoor Case is to create a dark, grounded world with a sense of realism — not photorealistic, but believable enough to immerse the player.
+The focus is on mood, lighting, and subtle environmental storytelling, evoking a feeling of unease and curiosity rather than relying on exaggerated or stylized visuals.
