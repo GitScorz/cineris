@@ -27,8 +27,11 @@ Engine::~Engine() {
 void Engine::run() {
   Mesh *oceanMesh = Mesh::createQuad(100.0f, 100.0f);
   Shader *oceanShader = new Shader("../shaders/ocean.vert", "../shaders/ocean.frag");
-
   m_pWorld->addObject(new GameObject(oceanMesh, oceanShader, glm::vec3(0.0f, 0.0f, 0.0f)));
+
+  Mesh *playerMesh = Mesh::createCube();
+  Shader *playerShader = new Shader("../shaders/cube.vert", "../shaders/cube.frag");
+  GameObject* playerObject = new GameObject(playerMesh, playerShader, glm::vec3(0.0f, 0.5f, 0.0f));
 
   Debug::registerDebugBindings(m_pInputManager);
   
@@ -46,6 +49,12 @@ void Engine::run() {
     oceanShader->setMat4("projection", projection);
     oceanShader->setVec3("lightDir", glm::normalize(glm::vec3(-0.5f, -1.0f, -0.3f)));
     oceanShader->setFloat("time", (float)glfwGetTime());
+
+    playerShader->use();
+    playerShader->setMat4("view", view);
+    playerShader->setMat4("projection", projection);
+    playerObject->setPosition(m_pPlayer->getPosition());
+    playerObject->draw();
 
     m_pCamera->rotate(
       m_pInputManager->getMouseDeltaX() * m_pInputManager->m_fMouseSensitivity, 

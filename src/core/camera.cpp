@@ -4,7 +4,8 @@
 Camera::Camera(glm::vec3 vTargetPos) 
   : m_vFront(glm::vec3(0.0f, 0.0f, -1.0f)), 
     m_vUp(glm::vec3(0.0f, 1.0f, 0.0f)),
-    m_fYaw(-90.0f), m_fPitch(0.0f), 
+    m_fYaw(-90.0f), 
+    m_fPitch(0.0f), 
     m_vTargetOffset(glm::vec3(0.0f, 2.0f, 5.0f))
 {
   updateCameraPosition(vTargetPos);

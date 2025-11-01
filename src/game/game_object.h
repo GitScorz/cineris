@@ -8,10 +8,6 @@ public:
   Mesh* m_pMesh;
   Shader* m_pShader;
 
-  glm::vec3 m_Position;
-  glm::vec3 m_Rotation;
-  glm::vec3 m_Scale;
-
   GameObject(Mesh* mesh, Shader* shader, glm::vec3 pos = glm::vec3(0.0f))
     : m_pMesh(mesh), m_pShader(shader), m_Position(pos), m_Rotation(0.0f), m_Scale(1.0f) {}
 
@@ -32,4 +28,11 @@ public:
 
     m_pMesh->draw();
   }
+
+  void setPosition(const glm::vec3& position) { m_Position = position; }
+  void setRotation(const glm::vec3& rotation) { m_Rotation = rotation; }
+  void setScale(const glm::vec3& scale) { m_Scale = scale; }
+
+private:
+  glm::vec3 m_Position, m_Rotation, m_Scale;
 };

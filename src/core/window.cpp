@@ -4,9 +4,11 @@ void framebuffer_size_callback(GLFWwindow *window, int width, int height){
   glViewport(0, 0, width, height);
 }
 
-  Window::Window(int w, int h, const std::string &t)
-      : m_iWidth(w), m_iHeight(h), m_Title(t)
-  {
+Window::Window(int w, int h, const std::string &t)
+  : m_iWidth(w), 
+  m_iHeight(h), 
+  m_Title(t) 
+{
     if (!glfwInit())
     {
       std::cout << "GLFW couldn't start." << std::endl;

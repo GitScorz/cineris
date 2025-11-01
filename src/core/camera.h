@@ -4,7 +4,6 @@
 class Camera
 {
 public:
-  glm::vec3 m_vPosition, m_vFront, m_vUp, m_vTarget, m_vTargetOffset;
   float m_fYaw, m_fPitch;
 
   Camera(glm::vec3 defaultPos);
@@ -15,5 +14,6 @@ public:
   void rotate(float fDeltaYaw, float fDeltaPitch);
 
   glm::vec3 getFront() { return m_vFront; }
-
+private:
+  glm::vec3 m_vPosition, m_vFront, m_vUp, m_vTarget, m_vTargetOffset;
 };
