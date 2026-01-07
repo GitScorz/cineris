@@ -1,7 +1,11 @@
 #include "shader.h"
 
-Shader::Shader(const std::string &vertex_filepath, const std::string &fragment_filepath)
+Shader::Shader(const std::string &shaderName)
 {
+  std::string shaderBasePath = "../shaders/";
+  std::string vertex_filepath = shaderBasePath + shaderName + ".vert";
+  std::string fragment_filepath = shaderBasePath + shaderName + ".frag";
+
   std::vector<unsigned int> modules = {
     compile(vertex_filepath, GL_VERTEX_SHADER),
     compile(fragment_filepath, GL_FRAGMENT_SHADER)
@@ -79,4 +83,10 @@ void Shader::setFloat(const std::string &name, float value) const
 {
   int location = glGetUniformLocation(m_RendererID, name.c_str());
   glUniform1f(location, value);
+}
+
+void Shader::setVec2(const std::string &name, const glm::vec2 &value) const
+{
+  int location = glGetUniformLocation(m_RendererID, name.c_str());
+  glUniform2fv(location, 1, &value[0]);
 }

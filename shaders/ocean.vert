@@ -6,13 +6,12 @@ uniform mat4 model;
 uniform mat4 view;
 uniform mat4 projection;
 uniform float time;
+uniform float waveHeight;
+uniform float waveFrequency;
 
 out vec3 vWorldPos;
 
 void main() {
-  float waveHeight = 0.2;
-  float waveFrequency = 2.0;
-
   vec3 pos = aPos;
   pos.y += sin(pos.x * waveFrequency + time) * waveHeight;
   pos.y += cos(pos.z * waveFrequency + time) * waveHeight * 0.5;

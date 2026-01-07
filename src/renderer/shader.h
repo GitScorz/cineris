@@ -9,18 +9,21 @@
 
 class Shader {
   public:
-    Shader(const std::string& vertex_filepath, const std::string& fragment_filepath);
+    Shader(const std::string& shaderName);
     ~Shader();
 
-    void use() const;
-    void setMat4(const std::string &name, const glm::mat4 &mat) const;
-    void setVec3(const std::string &name, const glm::vec3 &value) const;
-    void setFloat(const std::string &name, float value) const;
+    auto use() const -> void;
+    auto setMat4(const std::string &name, const glm::mat4 &mat) const -> void;
+    auto setVec3(const std::string &name, const glm::vec3 &value) const -> void;
+    auto setVec2(const std::string &name, const glm::vec2 &value) const -> void;
+    auto setFloat(const std::string &name, float value) const -> void;
 
-    unsigned int getID() const { return m_RendererID; }
+    auto getID() const -> unsigned int { 
+      return m_RendererID; 
+    }
 
   private:
-    unsigned int m_RendererID;
+    unsigned int m_RendererID = 0;
     std::string m_VertexSource;
     std::string m_FragmentSource;
 

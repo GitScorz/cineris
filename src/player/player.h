@@ -6,7 +6,7 @@
 class Player
 {
 public:
-  float m_fHealth, m_fSpeed;
+  float m_fHealth = 100.f, m_fSpeed = 0.f;
 
   Player(Camera *pCamera, InputManager *pInputManager);
   ~Player();
@@ -20,8 +20,9 @@ public:
   void setVelocity(glm::vec3 vVel) { m_vVelocity = vVel; }
 
 private:
-  Camera* m_pCamera;
-  InputManager* m_pInputManager;
+  Camera* m_pCamera = nullptr;
+  InputManager* m_pInputManager = nullptr;
 
-  glm::vec3 m_vPosition, m_vVelocity;
+  glm::vec3 m_vPosition{};
+  glm::vec3 m_vVelocity{};
 };

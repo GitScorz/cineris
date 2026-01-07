@@ -13,17 +13,17 @@ Camera::Camera(glm::vec3 vTargetPos)
 
 Camera::~Camera() {}
 
-glm::mat4 Camera::getViewMatrix() {
+auto Camera::getViewMatrix() const -> glm::mat4 {
   return glm::lookAt(m_vPosition, m_vPosition + m_vFront, m_vUp);
 }
 
-void Camera::updateCameraPosition(glm::vec3 vTarget) {
+auto Camera::updateCameraPosition(glm::vec3 vTarget) -> void {
   m_vTarget = vTarget;
   m_vPosition = m_vTarget + m_vTargetOffset;
   m_vFront = glm::normalize(m_vTarget - m_vPosition);
 }
 
-void Camera::rotate(float fDeltaYaw, float fDeltaPitch)
+auto Camera::rotate(float fDeltaYaw, float fDeltaPitch) -> void
 {
   m_fYaw += fDeltaYaw;
   m_fPitch = glm::clamp(m_fPitch + fDeltaPitch, -89.0f, 89.0f);

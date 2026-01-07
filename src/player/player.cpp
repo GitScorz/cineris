@@ -6,6 +6,10 @@ Player::Player(Camera *pCamera, InputManager *pInputManager)
     m_vPosition(0.0f, 0.0f, 0.0f), 
     m_fSpeed(5.0f)
 {
+  // Mesh *playerMesh = Mesh::createCube();
+  // Shader *playerShader = new Shader("cube");
+  // GameObject* playerObject = new GameObject(playerMesh, playerShader, glm::vec3(0.0f, 0.5f, 0.0f));
+
 }
 
 void Player::update(float fDeltaTime) {
