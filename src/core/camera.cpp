@@ -3,8 +3,8 @@
 
 Camera::Camera(glm::vec3 vTargetPos) 
   : m_vFront(glm::vec3(0.0f, 0.0f, -1.0f)), 
-    m_vUp(glm::vec3(0.0f, 1.0f, 0.0f)),
-    m_fYaw(-90.0f), 
+    m_vUp(glm::vec3(0.0f, 0.0f, 1.0f)),
+    m_fYaw(90.0f), 
     m_fPitch(0.0f), 
     m_vTargetOffset(glm::vec3(0.0f, 2.0f, 5.0f))
 {
@@ -25,7 +25,8 @@ auto Camera::updateCameraPosition(glm::vec3 vTarget) -> void {
 
 auto Camera::rotate(float fDeltaYaw, float fDeltaPitch) -> void
 {
-  m_fYaw += fDeltaYaw;
+  // TODO: invert camera settings
+  m_fYaw -= fDeltaYaw;
   m_fPitch = glm::clamp(m_fPitch + fDeltaPitch, -89.0f, 89.0f);
 
   float fRadYaw = glm::radians(m_fYaw);
@@ -33,8 +34,8 @@ auto Camera::rotate(float fDeltaYaw, float fDeltaPitch) -> void
 
   float fRadius = glm::length(m_vTargetOffset);
   m_vTargetOffset.x = fRadius * cos(fRadPitch) * cos(fRadYaw);
-  m_vTargetOffset.y = fRadius * sin(fRadPitch);
-  m_vTargetOffset.z = fRadius * cos(fRadPitch) * sin(fRadYaw);
+  m_vTargetOffset.y = fRadius * cos(fRadPitch) * sin(fRadYaw);
+  m_vTargetOffset.z = fRadius * sin(fRadPitch);
 
   m_vPosition = m_vTarget + m_vTargetOffset;
 

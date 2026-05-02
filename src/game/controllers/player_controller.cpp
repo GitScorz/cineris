@@ -14,10 +14,10 @@ PlayerController::PlayerController(Camera *pCamera, InputManager *pInputManager)
 
 void PlayerController::update(float fDeltaTime) {
   glm::vec3 vFront = m_pCamera->getFront();
-  glm::vec3 vRight = glm::normalize(glm::cross(vFront, glm::vec3(0.0f, 1.0f, 0.0f)));
+  glm::vec3 vRight = glm::normalize(glm::cross(vFront, glm::vec3(0.0f, 0.0f, 1.0f)));
 
-  vFront.y = 0.0f;
-  vRight.y = 0.0f;
+  vFront.z = 0.0f;
+  vRight.z = 0.0f;
 
   if (m_pInputManager->IsControlPressed(GLFW_KEY_W))
     m_vPosition += vFront * m_fSpeed * fDeltaTime;
