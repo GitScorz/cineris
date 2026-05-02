@@ -5,6 +5,7 @@
 
 class InputManager {
 public:
+  bool m_bFirstMouse = true;
   double m_dLastMouseX = 0.0, m_dLastMouseY = 0.0;
   float m_fMouseSensitivity = 0.1f;
 
