@@ -4,18 +4,17 @@
 #include "window.h"
 #include "renderer/shader.h"
 #include "input/input_manager.h"
-#include "game/world.h"
-#include "player/player.h"
+#include "game/world/world.h"
+// #include "game/controllers/player_controller.h"
 
 class Engine
 {
 public:
-  Window *m_pWindow;
-  Camera *m_pCamera;
-  InputManager* m_pInputManager;
-  World* m_pWorld;
-  Player* m_pPlayer;
-
+  Window *m_pWindow = nullptr;
+  Camera *m_pCamera = nullptr;
+  InputManager* m_pInputManager = nullptr;
+  World* m_pWorld = nullptr;
+  // PlayerController* m_pPlayer = nullptr;
   double m_dLastFrame = 0.0, m_dDeltaTime = 0.0;
 
   Engine();

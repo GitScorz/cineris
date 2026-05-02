@@ -3,7 +3,7 @@
 World::World() {}
 
 World::~World() {
-  for (GameObject* obj : m_Objects) {
+  for (WorldObject* obj : m_Objects) {
     delete obj;
   }
   m_Objects.clear();

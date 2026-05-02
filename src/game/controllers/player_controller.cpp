@@ -1,6 +1,6 @@
-#include "player.h"
+#include "player_controller.h"
 
-Player::Player(Camera *pCamera, InputManager *pInputManager)
+PlayerController::PlayerController(Camera *pCamera, InputManager *pInputManager)
     : m_pCamera(pCamera), 
     m_pInputManager(pInputManager), 
     m_vPosition(0.0f, 0.0f, 0.0f), 
@@ -12,7 +12,7 @@ Player::Player(Camera *pCamera, InputManager *pInputManager)
 
 }
 
-void Player::update(float fDeltaTime) {
+void PlayerController::update(float fDeltaTime) {
   glm::vec3 vFront = m_pCamera->getFront();
   glm::vec3 vRight = glm::normalize(glm::cross(vFront, glm::vec3(0.0f, 1.0f, 0.0f)));
 
@@ -33,6 +33,6 @@ void Player::update(float fDeltaTime) {
   m_pCamera->updateCameraPosition(m_vPosition);
 }
 
-Player::~Player() {
+PlayerController::~PlayerController() {
 
 }

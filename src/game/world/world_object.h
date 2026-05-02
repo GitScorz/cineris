@@ -1,17 +1,17 @@
 #pragma once
 #include <include.h>
-#include "../renderer/mesh.h"
-#include "../renderer/shader.h"
+#include "renderer/mesh.h"
+#include "renderer/shader.h"
 
-class GameObject {
+class WorldObject {
 public:
   Mesh* m_pMesh;
   Shader* m_pShader;
 
-  GameObject(Mesh* mesh, Shader* shader, glm::vec3 pos = glm::vec3(0.0f))
+  WorldObject(Mesh* mesh, Shader* shader, glm::vec3 pos = glm::vec3(0.0f))
     : m_pMesh(mesh), m_pShader(shader), m_Position(pos), m_Rotation(0.0f), m_Scale(1.0f) {}
 
-  ~GameObject();
+  ~WorldObject();
 
   void draw() {
     m_pShader->use();

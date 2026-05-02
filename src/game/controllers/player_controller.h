@@ -3,13 +3,13 @@
 #include "core/camera.h"
 #include "input/input_manager.h"
 
-class Player
+class PlayerController
 {
 public:
   float m_fHealth = 100.f, m_fSpeed = 0.f;
 
-  Player(Camera *pCamera, InputManager *pInputManager);
-  ~Player();
+  PlayerController(Camera *pCamera, InputManager *pInputManager);
+  ~PlayerController();
 
   void update(float fDeltaTime);
 

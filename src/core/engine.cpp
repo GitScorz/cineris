@@ -17,7 +17,7 @@ Engine::Engine() {
   m_pCamera = new Camera(glm::vec3(0.0f, 0.0f, 3.0f));
   m_pInputManager = new InputManager(m_pWindow->m_Handle);
   m_pWorld = new World();
-  m_pPlayer = new Player(m_pCamera, m_pInputManager);
+  // m_pPlayer = new PlayerController(m_pCamera, m_pInputManager);
 }
 
 Engine::~Engine() {
@@ -71,7 +71,7 @@ void Engine::run() {
 
     m_pInputManager->processInput();
     m_pWorld->draw();
-    m_pPlayer->update(m_dDeltaTime);
+    // m_pPlayer->update(m_dDeltaTime);
     m_pWindow->update();
     m_pWindow->updateFPS();
   }
