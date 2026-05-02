@@ -5,23 +5,23 @@
 #include "renderer/shader.h"
 #include "input/input_manager.h"
 #include "game/world/world.h"
-// #include "game/controllers/player_controller.h"
+#include "game/controllers/player_controller.h"
 
-class Engine
+class Cineris
 {
 public:
   Window *m_pWindow = nullptr;
   Camera *m_pCamera = nullptr;
   InputManager* m_pInputManager = nullptr;
   World* m_pWorld = nullptr;
-  // PlayerController* m_pPlayer = nullptr;
+  PlayerController* m_pPlayer = nullptr;
   double m_dLastFrame = 0.0, m_dDeltaTime = 0.0;
 
-  Engine();
-  ~Engine();
+  Cineris(const std::string& title);
+  ~Cineris();
 
   void run();
-  double calculateDeltaTime() {
+  auto calculateDeltaTime() -> double {
     double dCurrentFrame = glfwGetTime();
     double dDeltaTime = dCurrentFrame - m_dLastFrame;
     m_dLastFrame = dCurrentFrame;

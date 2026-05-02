@@ -2,18 +2,20 @@
 #include <include.h>
 #include "renderer/mesh.h"
 #include "renderer/shader.h"
+#include "renderer/render_context.h"
 
 class WorldObject {
 public:
   Mesh* m_pMesh;
   Shader* m_pShader;
+  glm::vec3 m_Position, m_Rotation, m_Scale;
 
   WorldObject(Mesh* mesh, Shader* shader, glm::vec3 pos = glm::vec3(0.0f))
     : m_pMesh(mesh), m_pShader(shader), m_Position(pos), m_Rotation(0.0f), m_Scale(1.0f) {}
 
   ~WorldObject();
 
-  void draw() {
+  void draw(const RenderContext& context) {
     m_pShader->use();
 
     // model matrix
@@ -25,6 +27,8 @@ public:
     model = glm::scale(model, m_Scale);
 
     m_pShader->setMat4("model", model);
+    m_pShader->setMat4("view", context.view);
+    m_pShader->setMat4("projection", context.projection);
 
     m_pMesh->draw();
   }
@@ -32,7 +36,4 @@ public:
   void setPosition(const glm::vec3& position) { m_Position = position; }
   void setRotation(const glm::vec3& rotation) { m_Rotation = rotation; }
   void setScale(const glm::vec3& scale) { m_Scale = scale; }
-
-private:
-  glm::vec3 m_Position, m_Rotation, m_Scale;
 };

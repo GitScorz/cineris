@@ -1,8 +1,29 @@
+#if defined(_WIN32)
+  #define WIN32_LEAN_AND_MEAN
+  #define NOMINMAX
+  #include <windows.h>
+#endif
+
 #include "debug.h"
+#include <cstdio>
 
 namespace Debug
 {
   bool bInWireframeMode = false;
+
+  void setupDebugConsole() {
+    #if defined(_WIN32)
+      if (!AttachConsole(ATTACH_PARENT_PROCESS) && !AllocConsole()) {
+        return;
+      }
+
+      std::freopen("CONIN$", "r", stdin);
+      std::freopen("CONOUT$", "w", stdout);
+      std::freopen("CONOUT$", "w", stderr);
+    #endif
+
+    std::cout << "Debug output ready." << std::endl;
+  }
 
   void registerDebugBindings(InputManager *pInput) {
     pInput->registerKeyBinding(GLFW_KEY_F1, []() {

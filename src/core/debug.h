@@ -4,5 +4,6 @@
 namespace Debug
 {
   extern bool bInWireframeMode;
+  void setupDebugConsole();
   void registerDebugBindings(InputManager *pInput);
 }

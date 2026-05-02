@@ -15,7 +15,7 @@ public:
   ~Window();
 
   void update();
-  bool shouldClose() const;
+  auto shouldClose() const -> bool;
   void updateFPS();
 private:
   double m_dLastFrameTime = 0.0;
