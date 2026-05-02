@@ -20,7 +20,7 @@ public:
   Cineris(const std::string& title);
   ~Cineris();
 
-  void run();
+  auto run() -> void;
   auto calculateDeltaTime() -> double {
     double dCurrentFrame = glfwGetTime();
     double dDeltaTime = dCurrentFrame - m_dLastFrame;

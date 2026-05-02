@@ -30,7 +30,7 @@ Cineris::~Cineris() {
   delete m_pPlayer;
 }
 
-void Cineris::run() {
+auto Cineris::run() -> void {
   float windowWidth = m_pWindow->m_iWidth;
   float windowHeight = m_pWindow->m_iHeight;
 
@@ -74,6 +74,7 @@ void Cineris::run() {
     // oceanShader->setFloat("waveFrequency", fWaveFrequency);
 
     playerObject->setPosition(m_pPlayer->getPosition());
+    m_pPlayer->update(m_dDeltaTime, m_pWorld);
     playerObject->draw(context);
 
     m_pCamera->rotate(
@@ -82,7 +83,6 @@ void Cineris::run() {
     );
 
     m_pInputManager->processInput();
-    m_pPlayer->update(m_dDeltaTime);
     m_pWorld->draw(context);
     m_pWindow->update();
     m_pWindow->updateFPS();

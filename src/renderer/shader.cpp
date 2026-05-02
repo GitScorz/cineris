@@ -34,7 +34,7 @@ Shader::~Shader() {
   glDeleteProgram(m_RendererID);
 }
 
-unsigned int Shader::compile(const std::string &filepath, unsigned int type) {
+auto Shader::compile(const std::string &filepath, unsigned int type) -> unsigned int {
   std::ifstream file(filepath);
 
   if (!file.is_open()) {
@@ -62,30 +62,30 @@ unsigned int Shader::compile(const std::string &filepath, unsigned int type) {
   return shaderModule;
 }
 
-void Shader::use() const
+auto Shader::use() const -> void
 {
   glUseProgram(m_RendererID);
 }
 
-void Shader::setMat4(const std::string &name, const glm::mat4 &mat) const
+auto Shader::setMat4(const std::string &name, const glm::mat4 &mat) const -> void
 {
   int location = glGetUniformLocation(m_RendererID, name.c_str());
   glUniformMatrix4fv(location, 1, GL_FALSE, &mat[0][0]);
 }
 
-void Shader::setVec3(const std::string &name, const glm::vec3 &value) const
+auto Shader::setVec3(const std::string &name, const glm::vec3 &value) const -> void
 {
   int location = glGetUniformLocation(m_RendererID, name.c_str());
   glUniform3fv(location, 1, &value[0]);
 }
 
-void Shader::setFloat(const std::string &name, float value) const
+auto Shader::setFloat(const std::string &name, float value) const -> void
 {
   int location = glGetUniformLocation(m_RendererID, name.c_str());
   glUniform1f(location, value);
 }
 
-void Shader::setVec2(const std::string &name, const glm::vec2 &value) const
+auto Shader::setVec2(const std::string &name, const glm::vec2 &value) const -> void
 {
   int location = glGetUniformLocation(m_RendererID, name.c_str());
   glUniform2fv(location, 1, &value[0]);

@@ -14,9 +14,9 @@ public:
   Window(int w, int h, const std::string& t);
   ~Window();
 
-  void update();
+  auto update() -> void;
   auto shouldClose() const -> bool;
-  void updateFPS();
+  auto updateFPS() -> void;
 private:
   double m_dLastFrameTime = 0.0;
   int m_iFrames = 0;

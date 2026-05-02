@@ -2,7 +2,7 @@
 
 // TODO: Create a resource manager to handle meshes, textures, shaders, etc. for better memory management.
 
-int main() {
+auto main() -> int {
   Cineris engine = Cineris("The Ashmoor Case");
   engine.run();
   return 0;

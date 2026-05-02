@@ -1,4 +1,5 @@
 #include "player_controller.h"
+#include "game/world/world.h"
 
 PlayerController::PlayerController(Camera *pCamera, InputManager *pInputManager)
     : m_pCamera(pCamera), 
@@ -12,21 +13,41 @@ PlayerController::PlayerController(Camera *pCamera, InputManager *pInputManager)
 
 }
 
-void PlayerController::update(float fDeltaTime) {
+auto PlayerController::getAABBAt(glm::vec3 vPosition) -> AABB {
+  return {
+    vPosition + glm::vec3(-0.3f, -0.3f, 0.0f),
+    vPosition + glm::vec3( 0.3f,  0.3f, 1.8f)
+  };
+}
+
+auto PlayerController::update(float fDeltaTime, World* pWorld) -> void {
   glm::vec3 vFront = m_pCamera->getFront();
   glm::vec3 vRight = glm::normalize(glm::cross(vFront, glm::vec3(0.0f, 0.0f, 1.0f)));
 
   vFront.z = 0.0f;
   vRight.z = 0.0f;
 
+  glm::vec3 vMovement(0.0f);
+
   if (m_pInputManager->IsControlPressed(GLFW_KEY_W))
-    m_vPosition += vFront * m_fSpeed * fDeltaTime;
+    vMovement += vFront * m_fSpeed * fDeltaTime;
   if (m_pInputManager->IsControlPressed(GLFW_KEY_S))
-    m_vPosition -= vFront * m_fSpeed * fDeltaTime;
+    vMovement -= vFront * m_fSpeed * fDeltaTime;
   if (m_pInputManager->IsControlPressed(GLFW_KEY_A))
-    m_vPosition -= vRight * m_fSpeed * fDeltaTime;
+    vMovement -= vRight * m_fSpeed * fDeltaTime;
   if (m_pInputManager->IsControlPressed(GLFW_KEY_D))
-    m_vPosition += vRight * m_fSpeed * fDeltaTime;
+    vMovement += vRight * m_fSpeed * fDeltaTime;
+
+  if (glm::length(vMovement) > 0.0f)
+    vMovement = glm::normalize(vMovement) * m_fSpeed * fDeltaTime;
+
+  glm::vec3 vNewPosition = m_vPosition + vMovement;
+
+  AABB playerBox = getAABBAt(vNewPosition);
+
+  if (!pWorld->collides(playerBox)) {
+    m_vPosition = vNewPosition;
+  }
 
   m_vPosition += m_vVelocity * fDeltaTime;
 

@@ -2,7 +2,9 @@
 #include <vector>
 #include "world_object.h"
 #include "renderer/render_context.h"
-#include "../controllers/player_controller.h"
+#include "math/aabb.h"
+
+class PlayerController;
 
 class World {
 public:
@@ -10,15 +12,15 @@ public:
   World();
   ~World();
 
-  void addObject(WorldObject* object) { m_Objects.push_back(object); }
-  void clearObjects() {
+  auto addObject(WorldObject* object) -> void { m_Objects.push_back(object); }
+  auto clearObjects() -> void {
     for (WorldObject* obj : m_Objects) {
       delete obj;
     }
     m_Objects.clear();
   }
   
-  WorldObject* getObjectFromId(int id) {
+  auto getObjectFromId(int id) -> WorldObject* {
     for (WorldObject* obj : m_Objects) {
       if (obj->m_ObjectId == id) {
         return obj;
@@ -27,7 +29,7 @@ public:
     return nullptr;
   }
 
-  void draw(const RenderContext& context) {
+  auto draw(const RenderContext& context) -> void {
     for (WorldObject* obj : m_Objects) {
       // std::cout << "Drawing object at position: (" << obj->m_Position.x << ", " << obj->m_Position.y << ", " << obj->m_Position.z << ")" << std::endl;
       // std::cout << "drawing object with id: " << obj->m_ObjectId << std::endl;
@@ -35,40 +37,17 @@ public:
     }
   }
 
-  void loadLevel(PlayerController* playerController, const std::vector<std::string>& levelData) {
-    clearObjects();
+  auto loadLevel(PlayerController* playerController, const std::vector<std::string>& levelData) -> void;
 
-    // P = player start, D = door/exit
-    // L = light, # = wall, . = floor
-
-    for (size_t row = 0; row < levelData.size(); ++row) {
-      const std::string& levelRow = levelData[row];
-      for (size_t col = 0; col < levelRow.size(); ++col) {
-        char tile = levelRow[col];
-        if (tile == '#') {
-          Mesh* wallMesh = Mesh::createCube();
-          Shader* wallShader = new Shader("wallShader");
-          WorldObject* wallObject = new WorldObject(wallMesh, wallShader, glm::vec3(col, row, 0.0f));
-          addObject(wallObject);
-        } else if (tile == 'P') {
-          // start position
-          playerController->setPosition(glm::vec3(col, row, 0.0f));
-        }
+  auto collides(const AABB& box) -> bool {
+    for (WorldObject* obj : m_Objects) {
+      AABB objBox = obj->getAABB();
+      if (box.min.x <= objBox.max.x && box.max.x >= objBox.min.x &&
+          box.min.y <= objBox.max.y && box.max.y >= objBox.min.y &&
+          box.min.z <= objBox.max.z && box.max.z >= objBox.min.z) {
+        return true;
       }
     }
-
-    float floorAreaSize = 0.f;
-
-    for (const std::string& row : levelData) {
-      floorAreaSize = std::max(floorAreaSize, static_cast<float>(row.size()));
-    }
-
-    std::cout << "floor area size: " << floorAreaSize << std::endl;
-
-    Mesh* floorMesh = Mesh::createQuad(floorAreaSize, floorAreaSize);
-    Shader* floorShader = new Shader("floorShader");
-    WorldObject* floorObject = new WorldObject(floorMesh, floorShader, glm::vec3(floorAreaSize / 2.0f - 0.5f, levelData.size() / 2.0f - 0.5f, -0.5f));
-    floorObject->setRotation(glm::vec3(-90.0f, 0.0f, 0.0f));
-    addObject(floorObject);
+    return false;
   }
 };

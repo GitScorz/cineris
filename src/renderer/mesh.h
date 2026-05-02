@@ -11,8 +11,8 @@ public:
 
   Mesh(std::vector<float> verts, std::vector<unsigned int> inds);
   ~Mesh();
-  void draw();
+  auto draw() -> void;
 
-  static Mesh* createCube();
-  static Mesh* createQuad(float fWidth = 1.0f, float fHeight = 1.0f);
+  static auto createCube() -> Mesh*;
+  static auto createQuad(float fWidth = 1.0f, float fHeight = 1.0f) -> Mesh*;
 };

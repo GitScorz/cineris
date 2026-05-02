@@ -12,7 +12,7 @@ public:
   InputManager(GLFWwindow* window);
   ~InputManager();
 
-  void processInput() {
+  auto processInput() -> void {
     for (auto &[key, func] : s_mKeyBindings) {
       if (glfwGetKey(m_pWindow, key) == GLFW_PRESS) {
         if (!s_mKeyStates[key]) {
@@ -25,16 +25,16 @@ public:
     }
   }
 
-  static void registerKeyBinding(int key, std::function<void()> func) {
+  static auto registerKeyBinding(int key, std::function<void()> func) -> void {
     s_mKeyBindings[key] = func;
     s_mKeyStates[key] = false; // Initialize key state
   }
 
-  bool IsControlPressed(int key) {
+  auto IsControlPressed(int key) -> bool {
     return glfwGetKey(m_pWindow, key) == GLFW_PRESS;
   }
 
-  float getMouseDeltaX() {
+  auto getMouseDeltaX() -> float {
     double xpos, ypos;
     glfwGetCursorPos(m_pWindow, &xpos, &ypos);
     float deltaX = xpos - m_dLastMouseX;
@@ -42,7 +42,7 @@ public:
     return deltaX;
   }
 
-  float getMouseDeltaY() {
+  auto getMouseDeltaY() -> float {
     double xpos, ypos;
     glfwGetCursorPos(m_pWindow, &xpos, &ypos);
     float deltaY = ypos - m_dLastMouseY;

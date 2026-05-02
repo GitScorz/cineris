@@ -32,14 +32,14 @@ Mesh::~Mesh()
   glDeleteBuffers(1, &EBO);
 }
 
-void Mesh::draw()
+auto Mesh::draw() -> void
 {
   glBindVertexArray(VAO);
   glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
   glBindVertexArray(0);
 }
 
-Mesh* Mesh::createCube() {
+auto Mesh::createCube() -> Mesh* {
   std::vector<float> verts = {
     // positions
     -0.5f, -0.5f, -0.5f,
@@ -64,7 +64,7 @@ Mesh* Mesh::createCube() {
   return new Mesh(verts, inds);
 }
 
-Mesh* Mesh::createQuad(float fWidth, float fHeight) {
+auto Mesh::createQuad(float fWidth, float fHeight) -> Mesh* {
   float w = fWidth / 2.0f;
   float h = fHeight / 2.0f;
 
@@ -81,4 +81,4 @@ Mesh* Mesh::createQuad(float fWidth, float fHeight) {
   };
 
   return new Mesh(verts, inds);
-} 
+}

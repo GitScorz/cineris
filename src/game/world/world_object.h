@@ -3,6 +3,7 @@
 #include "renderer/mesh.h"
 #include "renderer/shader.h"
 #include "renderer/render_context.h"
+#include "math/aabb.h"
 
 class WorldObject {
 public:
@@ -20,7 +21,7 @@ public:
 
   ~WorldObject();
 
-  void draw(const RenderContext& context) {
+  auto draw(const RenderContext& context) -> void {
     m_pShader->use();
 
     // model matrix
@@ -38,7 +39,15 @@ public:
     m_pMesh->draw();
   }
 
-  void setPosition(const glm::vec3& position) { m_Position = position; }
-  void setRotation(const glm::vec3& rotation) { m_Rotation = rotation; }
-  void setScale(const glm::vec3& scale) { m_Scale = scale; }
+  auto setPosition(const glm::vec3& position) -> void { m_Position = position; }
+  auto setRotation(const glm::vec3& rotation) -> void { m_Rotation = rotation; }
+  auto setScale(const glm::vec3& scale) -> void { m_Scale = scale; }
+
+  auto getAABB() -> AABB {
+    // TODO: calculate the AABB based on the actual vertices of the mesh lol
+    glm::vec3 halfScale = m_Scale * 0.5f;
+    glm::vec3 outMin = m_Position - m_Scale;
+    glm::vec3 outMax = m_Position + m_Scale;
+    return { outMin, outMax };
+  }
 };

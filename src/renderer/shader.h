@@ -27,5 +27,5 @@ class Shader {
     std::string m_VertexSource;
     std::string m_FragmentSource;
 
-    unsigned int compile(const std::string &filepath, unsigned int type);
+    auto compile(const std::string &filepath, unsigned int type) -> unsigned int;
 };

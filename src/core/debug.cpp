@@ -11,7 +11,7 @@ namespace Debug
 {
   bool bInWireframeMode = false;
 
-  void setupDebugConsole() {
+  auto setupDebugConsole() -> void {
     #if defined(_WIN32)
       if (!AttachConsole(ATTACH_PARENT_PROCESS) && !AllocConsole()) {
         return;
@@ -25,7 +25,7 @@ namespace Debug
     std::cout << "Debug output ready." << std::endl;
   }
 
-  void registerDebugBindings(InputManager *pInput) {
+  auto registerDebugBindings(InputManager *pInput) -> void {
     pInput->registerKeyBinding(GLFW_KEY_F1, []() {
       bInWireframeMode = !bInWireframeMode;
       glPolygonMode(GL_FRONT_AND_BACK, bInWireframeMode ? GL_LINE : GL_FILL);

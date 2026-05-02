@@ -1,6 +1,6 @@
 #include "window.h"
 
-void framebuffer_size_callback(GLFWwindow *window, int width, int height){
+auto framebuffer_size_callback(GLFWwindow *window, int width, int height) -> void {
   glViewport(0, 0, width, height);
 }
 
@@ -41,16 +41,16 @@ Window::~Window() {
   glfwTerminate();
 }
 
-void Window::update() {
+auto Window::update() -> void {
   glfwSwapBuffers(m_Handle);
   glfwPollEvents();
 }
 
-bool Window::shouldClose() const {
+auto Window::shouldClose() const -> bool {
   return glfwWindowShouldClose(m_Handle);
 }
 
-void Window::updateFPS() {
+auto Window::updateFPS() -> void {
   // double currentTime = glfwGetTime();
   // m_iFrames++;
 

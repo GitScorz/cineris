@@ -2,6 +2,9 @@
 #include <include.h>
 #include "core/camera.h"
 #include "input/input_manager.h"
+#include "math/aabb.h"
+
+class World;
 
 class PlayerController
 {
@@ -11,13 +14,14 @@ public:
   PlayerController(Camera *pCamera, InputManager *pInputManager);
   ~PlayerController();
 
-  void update(float fDeltaTime);
+  auto update(float fDeltaTime, World* pWorld) -> void;
+  auto getAABBAt(glm::vec3 vPosition) -> AABB;
 
-  void setPosition(glm::vec3 vPos) { m_vPosition = vPos; }
-  glm::vec3 getPosition() { return m_vPosition; }
+  auto setPosition(glm::vec3 vPos) -> void { m_vPosition = vPos; }
+  auto getPosition() -> glm::vec3 { return m_vPosition; }
 
-  glm::vec3 getVelocity() { return m_vVelocity; }
-  void setVelocity(glm::vec3 vVel) { m_vVelocity = vVel; }
+  auto getVelocity() -> glm::vec3 { return m_vVelocity; }
+  auto setVelocity(glm::vec3 vVel) -> void { m_vVelocity = vVel; }
 
 private:
   Camera* m_pCamera = nullptr;
