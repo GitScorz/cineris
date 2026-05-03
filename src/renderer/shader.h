@@ -17,6 +17,7 @@ class Shader {
     auto setVec3(const std::string &name, const glm::vec3 &value) const -> void;
     auto setVec2(const std::string &name, const glm::vec2 &value) const -> void;
     auto setFloat(const std::string &name, float value) const -> void;
+    auto setInt(const std::string &name, int value) const -> void;
 
     auto getID() const -> unsigned int { 
       return m_RendererID; 
@@ -26,6 +27,8 @@ class Shader {
     unsigned int m_RendererID = 0;
     std::string m_VertexSource;
     std::string m_FragmentSource;
+
+    static unsigned int s_BoundID;
 
     auto compile(const std::string &filepath, unsigned int type) -> unsigned int;
 };

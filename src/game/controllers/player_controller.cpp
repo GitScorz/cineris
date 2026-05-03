@@ -37,6 +37,10 @@ auto PlayerController::update(float fDeltaTime, World* pWorld) -> void {
     vMovement -= vRight * m_fSpeed * fDeltaTime;
   if (m_pInputManager->IsControlPressed(GLFW_KEY_D))
     vMovement += vRight * m_fSpeed * fDeltaTime;
+  if (m_pInputManager->IsControlPressed(GLFW_KEY_E))
+    vMovement += glm::vec3(0.0f, 0.0f, 1.0f) * m_fSpeed * fDeltaTime;
+  if (m_pInputManager->IsControlPressed(GLFW_KEY_Q))
+    vMovement -= glm::vec3(0.0f, 0.0f, 1.0f) * m_fSpeed * fDeltaTime;
 
   if (glm::length(vMovement) > 0.0f)
     vMovement = glm::normalize(vMovement) * m_fSpeed * fDeltaTime;

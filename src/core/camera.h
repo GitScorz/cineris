@@ -12,10 +12,9 @@ public:
   auto getViewMatrix() const -> glm::mat4;
   auto updateCameraPosition(glm::vec3 vTarget) -> void;
   auto rotate(float fDeltaYaw, float fDeltaPitch) -> void;
-
-  auto getFront() -> glm::vec3 { 
-    return m_vFront; 
-  }
+  
+  auto getPosition() -> glm::vec3 { return m_vPosition; }
+  auto getFront() -> glm::vec3 { return m_vFront; }
 private:
   glm::vec3 m_vPosition, m_vFront, m_vUp, m_vTarget, m_vTargetOffset;
 };

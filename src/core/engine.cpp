@@ -35,8 +35,9 @@ auto Cineris::run() -> void {
   float windowHeight = m_pWindow->m_iHeight;
 
   Mesh *playerMesh = Mesh::createCube();
-  Shader *playerShader = new Shader("cube");
+  Shader *playerShader = new Shader("lightning");
   WorldObject* playerObject = new WorldObject(playerMesh, playerShader, glm::vec3(0.0f, 0.0f, 0.0f));
+  playerObject->setObjectColor(glm::vec3(1.0f, 0.5f, 0.31f));
 
   Debug::registerDebugBindings(m_pInputManager);
 
@@ -44,11 +45,11 @@ auto Cineris::run() -> void {
     "#########################",
     "#...........#...........#",
     "#...........#...........#",
-    "#...........#...........#",
+    "#.....L.....#...........#",
     "#...........#...........#",
     "#..P........#######D#####",
     "#.......................#",
-    "#.......................#",
+    "#.................L.....#",
     "#########################"
   };
 
@@ -63,7 +64,13 @@ auto Cineris::run() -> void {
     glm::mat4 view = m_pCamera->getViewMatrix();
     glm::mat4 projection = glm::perspective(glm::radians(70.0f), windowWidth / windowHeight, 0.1f, 100.0f);
 
-    RenderContext context = { view, projection };
+    RenderContext context = { 
+      view, 
+      projection, 
+      m_pCamera->getPosition(),
+      m_pWorld->getLightPositions(),
+      glm::vec3(1.0f, 1.0f, 1.0f),
+    };
 
     // oceanShader->use();
     // oceanShader->setMat4("view", view);
@@ -71,7 +78,7 @@ auto Cineris::run() -> void {
     // oceanShader->setVec3("lightDir", glm::normalize(glm::vec3(-0.5f, -1.0f, -0.3f)));
     // oceanShader->setFloat("time", (float)glfwGetTime());
     // oceanShader->setFloat("waveHeight", fWaveHeight);
-    // oceanShader->setFloat("waveFrequency", fWaveFrequency);
+    // oceanShader->setFloat("waveFrequency", fWaveFrequency);    
 
     playerObject->setPosition(m_pPlayer->getPosition());
     m_pPlayer->update(m_dDeltaTime, m_pWorld);

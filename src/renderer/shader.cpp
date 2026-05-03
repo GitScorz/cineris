@@ -1,5 +1,7 @@
 #include "shader.h"
 
+unsigned int Shader::s_BoundID = 0;
+
 Shader::Shader(const std::string &shaderName)
 {
   std::string shaderBasePath = "../shaders/";
@@ -64,29 +66,43 @@ auto Shader::compile(const std::string &filepath, unsigned int type) -> unsigned
 
 auto Shader::use() const -> void
 {
-  glUseProgram(m_RendererID);
+  if (s_BoundID != m_RendererID) {
+    glUseProgram(m_RendererID);
+    s_BoundID = m_RendererID;
+  }
 }
 
 auto Shader::setMat4(const std::string &name, const glm::mat4 &mat) const -> void
 {
+  use();
   int location = glGetUniformLocation(m_RendererID, name.c_str());
   glUniformMatrix4fv(location, 1, GL_FALSE, &mat[0][0]);
 }
 
 auto Shader::setVec3(const std::string &name, const glm::vec3 &value) const -> void
 {
+  use();
   int location = glGetUniformLocation(m_RendererID, name.c_str());
   glUniform3fv(location, 1, &value[0]);
 }
 
 auto Shader::setFloat(const std::string &name, float value) const -> void
 {
+  use();
   int location = glGetUniformLocation(m_RendererID, name.c_str());
   glUniform1f(location, value);
 }
 
+auto Shader::setInt(const std::string &name, int value) const -> void
+{
+  use();
+  int location = glGetUniformLocation(m_RendererID, name.c_str());
+  glUniform1i(location, value);
+}
+
 auto Shader::setVec2(const std::string &name, const glm::vec2 &value) const -> void
 {
+  use();
   int location = glGetUniformLocation(m_RendererID, name.c_str());
   glUniform2fv(location, 1, &value[0]);
 }

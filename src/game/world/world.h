@@ -22,7 +22,7 @@ public:
   
   auto getObjectFromId(int id) -> WorldObject* {
     for (WorldObject* obj : m_Objects) {
-      if (obj->m_ObjectId == id) {
+      if (obj->getId() == id) {
         return obj;
       }
     }
@@ -38,6 +38,22 @@ public:
   }
 
   auto loadLevel(PlayerController* playerController, const std::vector<std::string>& levelData) -> void;
+
+  auto getLightPositions(int maxLights = RenderContext::MAX_LIGHTS) const -> std::vector<glm::vec3> {
+    std::vector<glm::vec3> lights;
+    lights.reserve(maxLights);
+
+    for (WorldObject* obj : m_Objects) {
+      if (obj->isLightSource()) {
+        lights.push_back(obj->getPosition());
+        if (static_cast<int>(lights.size()) >= maxLights) {
+          break;
+        }
+      }
+    }
+
+    return lights;
+  }
 
   auto collides(const AABB& box) -> bool {
     for (WorldObject* obj : m_Objects) {

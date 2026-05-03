@@ -22,12 +22,21 @@ auto World::loadLevel(PlayerController* playerController, const std::vector<std:
       char tile = levelRow[col];
       if (tile == '#') {
         Mesh* wallMesh = Mesh::createCube();
-        Shader* wallShader = new Shader("wallShader");
+        Shader* wallShader = new Shader("lightning");
         WorldObject* wallObject = new WorldObject(wallMesh, wallShader, glm::vec3(col, row, 0.0f));
+        wallObject->setObjectColor(glm::vec3(0.6f, 0.6f, 0.65f));
         addObject(wallObject);
       } else if (tile == 'P') {
         // start position
         playerController->setPosition(glm::vec3(col, row, 0.0f));
+      } else if (tile == 'L') {
+        // light source
+        Mesh* lightMesh = Mesh::createCube();
+        Shader* lightShader = new Shader("cube");
+        WorldObject* lightObject = new WorldObject(lightMesh, lightShader, glm::vec3(col, row, 0.0f));
+        lightObject->setScale(glm::vec3(0.2f));
+        lightObject->setIsLightSource(true);
+        addObject(lightObject);
       }
     }
   }
@@ -41,8 +50,9 @@ auto World::loadLevel(PlayerController* playerController, const std::vector<std:
   std::cout << "floor area size: " << floorAreaSize << std::endl;
 
   Mesh* floorMesh = Mesh::createQuad(floorAreaSize, floorAreaSize);
-  Shader* floorShader = new Shader("floorShader");
+  Shader* floorShader = new Shader("lightning");
   WorldObject* floorObject = new WorldObject(floorMesh, floorShader, glm::vec3(floorAreaSize / 2.0f - 0.5f, levelData.size() / 2.0f - 0.5f, -0.5f));
   floorObject->setRotation(glm::vec3(-90.0f, 0.0f, 0.0f));
+  floorObject->setObjectColor(glm::vec3(0.25f, 0.35f, 0.25f));
   addObject(floorObject);
 }

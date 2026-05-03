@@ -16,8 +16,11 @@ Mesh::Mesh(std::vector<float> verts, std::vector<unsigned int> inds)
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
   glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), &indices[0], GL_STATIC_DRAW);
 
-  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void *)0);
+  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void *)0);
   glEnableVertexAttribArray(0);
+
+  glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void *)(3 * sizeof(float)));
+  glEnableVertexAttribArray(1);
 
   // unbind
   glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -41,24 +44,46 @@ auto Mesh::draw() -> void
 
 auto Mesh::createCube() -> Mesh* {
   std::vector<float> verts = {
-    // positions
-    -0.5f, -0.5f, -0.5f,
-    0.5f, -0.5f, -0.5f,
-    0.5f, 0.5f, -0.5f,
-    -0.5f, 0.5f, -0.5f,
-    -0.5f, -0.5f, 0.5f,
-    0.5f, -0.5f, 0.5f,
-    0.5f, 0.5f, 0.5f,
-    -0.5f, 0.5f, 0.5f
+    // positions          // normals
+    // back face
+    -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
+    0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
+    0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
+    -0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
+    // front face
+    -0.5f, -0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
+    0.5f, -0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
+    0.5f,  0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
+    -0.5f,  0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
+    // left face
+    -0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
+    -0.5f,  0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
+    -0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
+    -0.5f, -0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
+    // right face
+    0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
+    0.5f,  0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
+    0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
+    0.5f, -0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
+    // bottom face
+    -0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
+    -0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
+    0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
+    0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
+    // top face
+    -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,
+    -0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
+    0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
+    0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f
   };
 
   std::vector<unsigned int> inds = {
     0, 1, 2, 2, 3, 0,
     4, 5, 6, 6, 7, 4,
-    0, 4, 7, 7, 3, 0,
-    1, 5, 6, 6, 2, 1,
-    3, 2, 6, 6, 7, 3,
-    0, 1, 5, 5, 4, 0 
+    8, 9, 10, 10, 11, 8,
+    12, 13, 14, 14, 15, 12,
+    16, 17, 18, 18, 19, 16,
+    20, 21, 22, 22, 23, 20
   };
 
   return new Mesh(verts, inds);
@@ -69,10 +94,11 @@ auto Mesh::createQuad(float fWidth, float fHeight) -> Mesh* {
   float h = fHeight / 2.0f;
 
   std::vector<float> verts = {
-    -w, 0.0f, -h, 
-    w, 0.0f, -h, 
-    w, 0.0f, h, 
-    -w, 0.0f, h
+    // positions      // normals (up)
+    -w, 0.0f, -h,     0.0f, 1.0f, 0.0f,
+    w, 0.0f, -h,     0.0f, 1.0f, 0.0f,
+    w, 0.0f,  h,     0.0f, 1.0f, 0.0f,
+    -w, 0.0f,  h,     0.0f, 1.0f, 0.0f
   };
 
   std::vector<unsigned int> inds = {
