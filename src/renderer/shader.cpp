@@ -1,16 +1,16 @@
 #include "shader.h"
+#include "paths.h"
 
 unsigned int Shader::s_BoundID = 0;
 
 Shader::Shader(const std::string &shaderName)
 {
-  std::string shaderBasePath = "../shaders/";
-  std::string vertex_filepath = shaderBasePath + shaderName + ".vert";
-  std::string fragment_filepath = shaderBasePath + shaderName + ".frag";
+  std::string vertexFilePath = Paths::Shaders + shaderName + ".vert";
+  std::string fragmentFilePath = Paths::Shaders + shaderName + ".frag";
 
   std::vector<unsigned int> modules = {
-    compile(vertex_filepath, GL_VERTEX_SHADER),
-    compile(fragment_filepath, GL_FRAGMENT_SHADER)
+    compile(vertexFilePath, GL_VERTEX_SHADER),
+    compile(fragmentFilePath, GL_FRAGMENT_SHADER)
   };
 
   m_RendererID = glCreateProgram();
@@ -75,34 +75,42 @@ auto Shader::use() const -> void
 auto Shader::setMat4(const std::string &name, const glm::mat4 &mat) const -> void
 {
   use();
-  int location = glGetUniformLocation(m_RendererID, name.c_str());
+  int location = Shader::getUniformLocation(name);
   glUniformMatrix4fv(location, 1, GL_FALSE, &mat[0][0]);
 }
 
 auto Shader::setVec3(const std::string &name, const glm::vec3 &value) const -> void
 {
   use();
-  int location = glGetUniformLocation(m_RendererID, name.c_str());
+  int location = Shader::getUniformLocation(name);
   glUniform3fv(location, 1, &value[0]);
 }
 
 auto Shader::setFloat(const std::string &name, float value) const -> void
 {
   use();
-  int location = glGetUniformLocation(m_RendererID, name.c_str());
+  int location = Shader::getUniformLocation(name);
   glUniform1f(location, value);
 }
 
 auto Shader::setInt(const std::string &name, int value) const -> void
 {
   use();
-  int location = glGetUniformLocation(m_RendererID, name.c_str());
+  int location = Shader::getUniformLocation(name);
   glUniform1i(location, value);
 }
 
 auto Shader::setVec2(const std::string &name, const glm::vec2 &value) const -> void
 {
   use();
-  int location = glGetUniformLocation(m_RendererID, name.c_str());
+  int location = Shader::getUniformLocation(name);
   glUniform2fv(location, 1, &value[0]);
+}
+
+auto Shader::getUniformLocation(const std::string& name) const -> int {
+  auto it = m_UniformCache.find(name);
+  if (it != m_UniformCache.end()) return it->second;
+  int loc = glGetUniformLocation(m_RendererID, name.c_str());
+  m_UniformCache[name] = loc;
+  return loc;
 }

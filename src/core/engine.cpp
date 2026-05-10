@@ -1,5 +1,7 @@
 #include "engine.h"
 #include "debug.h"
+#include "resource_manager.h"
+#include "game/world/level_loader.h"
 
 Cineris::Cineris(const std::string& title) {
   Debug::setupDebugConsole();
@@ -34,25 +36,27 @@ auto Cineris::run() -> void {
   float windowWidth = m_pWindow->m_iWidth;
   float windowHeight = m_pWindow->m_iHeight;
 
-  Mesh *playerMesh = Mesh::createCube();
-  Shader *playerShader = new Shader("lightning");
-  WorldObject* playerObject = new WorldObject(playerMesh, playerShader, glm::vec3(0.0f, 0.0f, 0.0f));
+  Mesh *playerMesh = ResourceManager::get().getCubeMesh();
+  Shader *playerShader = ResourceManager::get().getShader("lightning");
+  Texture *playerTexture = ResourceManager::get().getTexture("black.png");
+  WorldObject* playerObject = new WorldObject(playerMesh, playerShader, playerTexture, glm::vec3(0.0f, 0.0f, 0.0f));
   playerObject->setObjectColor(glm::vec3(1.0f, 0.5f, 0.31f));
 
   Debug::registerDebugBindings(m_pInputManager);
 
-  std::vector<std::string> level = {
-    "#########################",
-    "#...........#...........#",
-    "#...........#...........#",
-    "#.....L.....#...........#",
-    "#...........#...........#",
-    "#..P........#######D#####",
-    "#.......................#",
-    "#.................L.....#",
-    "#########################"
-  };
-
+  // std::vector<std::string> level = {
+  //   "#########################",
+  //   "#...........#...........#",
+  //   "#...........#...........#",
+  //   "#.....L.....#...........#",
+  //   "#...........#...........#",
+  //   "#..P........#######D#####",
+  //   "#.......................#",
+  //   "#.................L.....#",
+  //   "#########################"
+  // };
+  
+  auto level = LevelLoader::load("ashmoor_entrance");
   m_pWorld->loadLevel(m_pPlayer, level);
   
   while (!m_pWindow->shouldClose()) {

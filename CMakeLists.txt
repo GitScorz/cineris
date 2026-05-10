@@ -22,6 +22,10 @@ target_link_directories(cineris PRIVATE
 
 target_link_libraries(cineris PRIVATE glfw3)
 
+target_compile_definitions(cineris PRIVATE
+  CNR_BASE_PATH="${CMAKE_SOURCE_DIR}/"
+)
+
 file(COPY shaders DESTINATION ${CMAKE_BINARY_DIR})
 
 if(WIN32)

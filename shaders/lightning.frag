@@ -2,13 +2,16 @@
 out vec4 fragmentColor;
 
 in vec3 Normal;  
-in vec3 FragPos;  
+in vec3 FragPos;
+in vec2 TexCoords;
 
 uniform vec3 viewPos; 
 uniform vec3 lightColor;
 uniform vec3 objectColor;
 uniform int lightCount;
 uniform vec3 lightPositions[8];
+
+uniform sampler2D uTexture;
 
 void main() {
   float ambientStrength = 0.15;
@@ -33,5 +36,5 @@ void main() {
   }
 
   vec3 result = (ambient + diffuseSum + specularSum) * objectColor;
-  fragmentColor = vec4(result, 1.0);
+  fragmentColor = texture(uTexture, TexCoords) * vec4(result, 1.0);
 } 

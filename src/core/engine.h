@@ -3,6 +3,7 @@
 #include "camera.h"
 #include "window.h"
 #include "renderer/shader.h"
+#include "renderer/texture.h"
 #include "input/input_manager.h"
 #include "game/world/world.h"
 #include "game/controllers/player_controller.h"

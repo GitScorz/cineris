@@ -3,8 +3,7 @@
 #include "core/camera.h"
 #include "input/input_manager.h"
 #include "math/aabb.h"
-
-class World;
+#include "game/world/world.h"
 
 class PlayerController
 {

@@ -6,29 +6,32 @@
 #include <fstream>
 #include <sstream>
 #include <string>
+#include <unordered_map>
 
 class Shader {
-  public:
-    Shader(const std::string& shaderName);
-    ~Shader();
+public:
+  Shader(const std::string& shaderName);
+  ~Shader();
 
-    auto use() const -> void;
-    auto setMat4(const std::string &name, const glm::mat4 &mat) const -> void;
-    auto setVec3(const std::string &name, const glm::vec3 &value) const -> void;
-    auto setVec2(const std::string &name, const glm::vec2 &value) const -> void;
-    auto setFloat(const std::string &name, float value) const -> void;
-    auto setInt(const std::string &name, int value) const -> void;
+  auto use() const -> void;
+  auto setMat4(const std::string &name, const glm::mat4 &mat) const -> void;
+  auto setVec3(const std::string &name, const glm::vec3 &value) const -> void;
+  auto setVec2(const std::string &name, const glm::vec2 &value) const -> void;
+  auto setFloat(const std::string &name, float value) const -> void;
+  auto setInt(const std::string &name, int value) const -> void;
 
-    auto getID() const -> unsigned int { 
-      return m_RendererID; 
-    }
+  auto getID() const -> unsigned int { 
+    return m_RendererID; 
+  }
 
-  private:
-    unsigned int m_RendererID = 0;
-    std::string m_VertexSource;
-    std::string m_FragmentSource;
+private:
+  unsigned int m_RendererID = 0;
+  std::string m_VertexSource;
+  std::string m_FragmentSource;
+  mutable std::unordered_map<std::string, int> m_UniformCache;
 
-    static unsigned int s_BoundID;
+  static unsigned int s_BoundID;
 
-    auto compile(const std::string &filepath, unsigned int type) -> unsigned int;
+  auto compile(const std::string &filepath, unsigned int type) -> unsigned int;
+  auto getUniformLocation(const std::string& name) const -> int;
 };

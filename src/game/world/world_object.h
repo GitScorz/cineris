@@ -4,20 +4,22 @@
 #include "renderer/shader.h"
 #include "renderer/render_context.h"
 #include "math/aabb.h"
+#include "renderer/texture.h"
 
 class WorldObject {
 public:
   Mesh* m_pMesh;
   Shader* m_pShader;
+  Texture* m_pTexture;
 
-  WorldObject(Mesh* mesh, Shader* shader, glm::vec3 pos = glm::vec3(0.0f))
-    : m_pMesh(mesh), m_pShader(shader), m_Position(pos), m_Rotation(0.0f), m_Scale(1.0f), m_ObjectColor(1.0f) 
+  WorldObject(Mesh* mesh, Shader* shader, Texture* texture, glm::vec3 pos = glm::vec3(0.0f))
+    : m_pMesh(mesh), m_pShader(shader), m_pTexture(texture), m_Position(pos), m_Rotation(0.0f), m_Scale(1.0f), m_ObjectColor(1.0f) 
   {
     static int nextId = 0;
     m_ObjectId = nextId++;
   }
 
-  ~WorldObject();
+  ~WorldObject() = default;
 
   auto draw(const RenderContext& context) -> void {
     m_pShader->use();
@@ -47,6 +49,7 @@ public:
       m_pShader->setVec3("lightPositions[" + std::to_string(i) + "]", context.lightPositions[i]);
     }
 
+    m_pTexture->bind(0);
     m_pMesh->draw();
   }
 
@@ -61,7 +64,6 @@ public:
 
   auto getAABB() -> AABB {
     // TODO: calculate the AABB based on the actual vertices of the mesh lol
-    glm::vec3 halfScale = m_Scale * 0.5f;
     glm::vec3 outMin = m_Position - m_Scale;
     glm::vec3 outMax = m_Position + m_Scale;
     return { outMin, outMax };
