@@ -16,3 +16,8 @@ I’m building everything from scratch using C++, OpenGL, and GLFW, to understan
 
 The goal for The Ashmoor Case is to create a dark, grounded world with a sense of realism — not photorealistic, but believable enough to immerse the player.
 The focus is on mood, lighting, and subtle environmental storytelling, evoking a feeling of unease and curiosity rather than relying on exaggerated or stylized visuals.
+
+## Resources
+
+I plan to create some of the textures, models etc... but some of them are from:
+- https://ambientcg.com/
