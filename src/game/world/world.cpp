@@ -19,11 +19,11 @@ auto World::loadLevel(PlayerController* playerController, const std::vector<std:
     for (size_t col = 0; col < levelRow.size(); ++col) {
       char tile = levelRow[col];
       if (tile == '#') {
-        Mesh* wallMesh = ResourceManager::get().getCubeMesh();
-        Shader* wallShader = ResourceManager::get().getShader("lightning");
-        WorldObject* wallObject = new WorldObject(wallMesh, wallShader, nullptr, glm::vec3(col, row, 0.0f));
-        wallObject->setObjectColor(glm::vec3(0.6f, 0.6f, 0.65f));
-        addObject(wallObject);
+        // Mesh* wallMesh = ResourceManager::get().getCubeMesh();
+        // Shader* wallShader = ResourceManager::get().getShader("lightning");
+        // WorldObject* wallObject = new WorldObject(wallMesh, wallShader, nullptr, glm::vec3(col, row, 0.0f));
+        // wallObject->setObjectColor(glm::vec3(0.6f, 0.6f, 0.65f));
+        // addObject(wallObject);
       } else if (tile == 'P') {
         // start position
         playerController->setPosition(glm::vec3(col, row, 0.0f));
@@ -47,7 +47,8 @@ auto World::loadLevel(PlayerController* playerController, const std::vector<std:
 
   std::cout << "floor area size: " << floorAreaSize << std::endl;
 
-  Mesh* floorMesh = Mesh::createQuad(floorAreaSize, floorAreaSize);
+  Mesh* floorMesh = Mesh::createGrid(20.f, 20.f, 100, 100);
+  // Mesh* floorMesh = Mesh::createQuad(floorAreaSize, floorAreaSize);
   Shader* floorShader = ResourceManager::get().getShader("lightning");
   Texture* floorTexture = ResourceManager::get().getTexture("Rocks024L_1K/Rocks024L_1K-PNG_Color.png");
   WorldObject* floorObject = new WorldObject(floorMesh, floorShader, floorTexture, glm::vec3(floorAreaSize / 2.0f - 0.5f, levelData.size() / 2.0f - 0.5f, -0.5f));

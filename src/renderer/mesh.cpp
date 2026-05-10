@@ -117,3 +117,54 @@ auto Mesh::createQuad(float fWidth, float fHeight) -> Mesh* {
 
   return new Mesh(verts, inds);
 }
+
+auto Mesh::createGrid(float fWidth, float fDepth, int iRows, int iCols) -> Mesh* {
+  std::vector<float> verts = {};
+  std::vector<unsigned int> inds = {};
+
+  for (int row = 0; row < iRows; row++) {
+    for (int col = 0; col < iCols; col++) {
+
+      float uPos = static_cast<float>(col / static_cast<float>(iCols - 1));
+      float vPos = static_cast<float>(row / static_cast<float>(iRows - 1));
+
+      float x = uPos * fWidth - fWidth / 2;
+      float z = vPos * fDepth - fDepth / 2;
+      // float y = 0.f;
+      float y = sin(x * 0.3f) * cos(z * 0.3f) * 2.0f;
+
+      // pos
+      verts.push_back(x);
+      verts.push_back(y);
+      verts.push_back(z);
+
+      // normals
+      verts.push_back(0.f);
+      verts.push_back(1.f);
+      verts.push_back(0.f);
+
+      // uv
+      verts.push_back(uPos);
+      verts.push_back(vPos);
+    }
+  }
+
+  for (int row = 0; row < iRows - 1; row++) {
+    for (int col = 0; col < iCols - 1; col++) {
+      unsigned int topLeft = row * iCols + col;
+      unsigned int topRight = topLeft + 1;
+      unsigned int bottomLeft = (row + 1) * iCols + col;
+      unsigned int bottomRight = bottomLeft + 1;
+
+      inds.push_back(topLeft);
+      inds.push_back(bottomLeft);
+      inds.push_back(topRight);
+
+      inds.push_back(topRight);
+      inds.push_back(bottomLeft);
+      inds.push_back(bottomRight);
+    }
+  }
+
+  return new Mesh(verts, inds);
+}

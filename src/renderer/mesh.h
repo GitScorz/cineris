@@ -14,5 +14,6 @@ public:
   auto draw() -> void;
 
   static auto createCube() -> Mesh*;
-  static auto createQuad(float fWidth = 1.0f, float fHeight = 1.0f) -> Mesh*;
+  static auto createQuad(float fWidth, float fHeight) -> Mesh*;
+  static auto createGrid(float fWidth, float fDepth, int iRows, int iCols) -> Mesh*;
 };
