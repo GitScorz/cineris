@@ -43,18 +43,6 @@ auto Cineris::run() -> void {
   playerObject->setObjectColor(glm::vec3(1.0f, 0.5f, 0.31f));
 
   Debug::registerDebugBindings(m_pInputManager);
-
-  // std::vector<std::string> level = {
-  //   "#########################",
-  //   "#...........#...........#",
-  //   "#...........#...........#",
-  //   "#.....L.....#...........#",
-  //   "#...........#...........#",
-  //   "#..P........#######D#####",
-  //   "#.......................#",
-  //   "#.................L.....#",
-  //   "#########################"
-  // };
   
   auto level = LevelLoader::load("ashmoor_entrance");
   m_pWorld->loadLevel(m_pPlayer, level);

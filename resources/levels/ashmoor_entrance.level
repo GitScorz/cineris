@@ -1,6 +1,6 @@
-# level: ashmoor_entrance
-# P = player start, D = door/exit
-# L = light, # = wall, . = floor
+// level: ashmoor_entrance
+// P = player start, D = door/exit
+// L = light, # = wall, . = floor
 
 #########################
 #...........#...........#

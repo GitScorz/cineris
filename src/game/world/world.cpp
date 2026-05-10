@@ -39,7 +39,7 @@ auto World::loadLevel(PlayerController* playerController, const std::vector<std:
     }
   }
 
-  float floorAreaSize = 20.f;
+  float floorAreaSize = 0.f;
 
   for (const std::string& row : levelData) {
     floorAreaSize = std::max(floorAreaSize, static_cast<float>(row.size()));

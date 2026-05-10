@@ -49,7 +49,11 @@ public:
       m_pShader->setVec3("lightPositions[" + std::to_string(i) + "]", context.lightPositions[i]);
     }
 
-    m_pTexture->bind(0);
+    if (m_pTexture) {
+      m_pTexture->bind(0);
+      m_pShader->setInt("uTexture", 0);
+    }
+
     m_pMesh->draw();
   }
 
