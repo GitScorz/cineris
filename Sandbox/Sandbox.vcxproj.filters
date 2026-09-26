@@ -2,10 +2,17 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="Source" />
+    <Filter Include="Shaders" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp"><Filter>Source</Filter></ClCompile>
     <ClCompile Include="src\Sandbox.cpp"><Filter>Source</Filter></ClCompile>
     <ClInclude Include="src\Sandbox.h"><Filter>Source</Filter></ClInclude>
+    <None Include="..\Shaders\shadow.vert"><Filter>Shaders</Filter></None>
+    <None Include="..\Shaders\shadow.frag"><Filter>Shaders</Filter></None>
+    <None Include="..\Shaders\textured.vert"><Filter>Shaders</Filter></None>
+    <None Include="..\Shaders\textured.frag"><Filter>Shaders</Filter></None>
+    <None Include="..\Shaders\tonemap.vert"><Filter>Shaders</Filter></None>
+    <None Include="..\Shaders\tonemap.frag"><Filter>Shaders</Filter></None>
   </ItemGroup>
 </Project>

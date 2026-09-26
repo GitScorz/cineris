@@ -1,6 +1,7 @@
 #include <cineris/renderer/Mesh.h>
 #include <glad/glad.h>
 #include <utility>
+#include <algorithm>
 
 namespace cineris {
 
@@ -46,24 +47,47 @@ Mesh::~Mesh() {
 Mesh::Mesh(Mesh&& other) noexcept
     : vertices(std::move(other.vertices)), indices(std::move(other.indices)),
       textures(std::move(other.textures)), VAO(std::exchange(other.VAO, 0)),
-      VBO(std::exchange(other.VBO, 0)), EBO(std::exchange(other.EBO, 0)) {}
+      VBO(std::exchange(other.VBO, 0)), EBO(std::exchange(other.EBO, 0)) {
+	materialIndex = other.materialIndex;
+}
 
-void Mesh::draw(Shader& shader) {
+void Mesh::draw(Shader& shader, const Material& material) {
 	shader.use();
-	bool hasDiffuseTexture = false;
-	for (const auto& texture : textures) {
-		if (texture.type == "texture_diffuse" && texture.id != 0) {
-			glActiveTexture(GL_TEXTURE0);
-			glBindTexture(GL_TEXTURE_2D, texture.id);
-			shader.setInt("diffuseTexture", 0);
-			hasDiffuseTexture = true;
-			break;
+	shader.setVec3("surfaceColor", material.tint);
+	shader.setFloat("surfaceOpacity", std::clamp(material.opacity, 0.0f, 1.0f));
+	shader.setFloat("roughness", std::clamp(material.roughness, 0.05f, 1.0f));
+	shader.setFloat("specularStrength", std::clamp(material.specular, 0.0f, 1.0f));
+	shader.setFloat("alphaCutoff", std::clamp(material.alphaCutoff, 0.0f, 1.0f));
+	shader.setFloat("normalStrength", std::max(material.normalStrength, 0.0f));
+	shader.setFloat("bumpStrength", std::max(material.bumpStrength, 0.0f));
+	shader.setBool("flipNormalY", material.flipNormalY);
+
+	auto bindTexture = [&](const char* type, const char* sampler, const char* flag, int unit) {
+		unsigned int id = 0;
+		for (const auto& texture : textures) {
+			if (texture.type == type && texture.id != 0) {
+				id = texture.id;
+				break;
+			}
 		}
-	}
-	shader.setBool("hasDiffuseTexture", hasDiffuseTexture);
+
+		glActiveTexture(GL_TEXTURE0 + unit);
+		glBindTexture(GL_TEXTURE_2D, id);
+		shader.setInt(sampler, unit);
+		shader.setBool(flag, id != 0);
+	};
+
+	// Unit 1 belongs to the renderer's shadow map
+	bindTexture("texture_diffuse", "diffuseTexture", "hasDiffuseTexture", 0);
+	bindTexture("texture_normal", "normalTexture", "hasNormalTexture", 2);
+	bindTexture("texture_specular", "specularTexture", "hasSpecularTexture", 3);
+	bindTexture("texture_opacity", "opacityTexture", "hasOpacityTexture", 4);
+	bindTexture("texture_bump", "bumpTexture", "hasBumpTexture", 5);
+
 	glBindVertexArray(VAO);
 	glDrawElements(GL_TRIANGLES, static_cast<GLsizei>(indices.size()), GL_UNSIGNED_INT, 0);
 	glBindVertexArray(0);
+	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, 0);
 }
 

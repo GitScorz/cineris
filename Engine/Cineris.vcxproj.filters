@@ -7,6 +7,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Application.cpp"><Filter>Source</Filter></ClCompile>
+    <ClCompile Include="src\assets\AssetManager.cpp"><Filter>Source</Filter></ClCompile>
+    <ClInclude Include="include\cineris\assets\AssetManager.h"><Filter>Public Headers</Filter></ClInclude>
+    <ClInclude Include="include\cineris\scene\Transform.h"><Filter>Public Headers</Filter></ClInclude>
+    <ClInclude Include="include\cineris\scene\Scene.h"><Filter>Public Headers</Filter></ClInclude>
+    <ClInclude Include="include\cineris\renderer\Material.h"><Filter>Public Headers</Filter></ClInclude>
     <ClCompile Include="src\Window.cpp"><Filter>Source</Filter></ClCompile>
     <ClCompile Include="src\camera\Camera.cpp"><Filter>Source</Filter></ClCompile>
     <ClCompile Include="src\input\Input.cpp"><Filter>Source</Filter></ClCompile>

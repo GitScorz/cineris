@@ -2,6 +2,8 @@
 #include <cineris/Application.h>
 #include <cineris/renderer/Model.h>
 #include <cineris/renderer/Shader.h>
+#include <cineris/assets/AssetManager.h>
+#include <cineris/scene/Scene.h>
 #include <memory>
 class Sandbox {
 public:
@@ -13,11 +15,13 @@ public:
 
 private:
 	cineris::Window& m_window;
-    cineris::Renderer& m_renderer;
+	cineris::Renderer& m_renderer;
 
-	std::unique_ptr<cineris::Shader> m_sponzaShader;
-	std::unique_ptr<cineris::Model> m_sponzaModel;
-	std::unique_ptr<cineris::Model> m_characterModel;
+	cineris::AssetManager m_assets;
+	cineris::Scene m_scene;
+	cineris::Scene m_previewScene;
+	int m_selectedObject = 0;
+	void drawSettings();
 
 	std::unique_ptr<cineris::Camera> m_camera;
 	bool m_firstMouse = true;

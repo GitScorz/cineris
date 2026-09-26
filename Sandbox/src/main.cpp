@@ -2,9 +2,8 @@
 #include "Sandbox.h"
 #include <filesystem>
 #include <iostream>
-#include <string_view>
 
-int main(int argc, char** argv) {
+int main() {
     try {
         // Assets are deployed beside the executable, independent of the working directory.
         wchar_t executable[32768];
@@ -17,9 +16,7 @@ int main(int argc, char** argv) {
         Sandbox sandbox(app.window(), app.renderer(), {
             .position = glm::vec3(12.221539f, 1.332057f, -0.390347f)
         });
-        const bool smokeTest = argc > 1 && std::string_view(argv[1]) == "--smoke-test";
         double lastFrame = glfwGetTime();
-        int frames = 0;
         while (app.window().open()) {
             const double now = glfwGetTime();
             const float deltaTime = static_cast<float>(now - lastFrame);
@@ -29,7 +26,6 @@ int main(int argc, char** argv) {
             sandbox.beginFrame();
             sandbox.endFrame();
             app.window().update();
-            if (smokeTest && ++frames >= 3) break;
         }
         std::cout << "Cineris Sandbox closed successfully.\n";
     } catch (const std::exception& error) {

@@ -35,6 +35,12 @@
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Sandbox.cpp" />
     <ClInclude Include="src\Sandbox.h" />
+    <None Include="..\Shaders\shadow.vert" />
+    <None Include="..\Shaders\shadow.frag" />
+    <None Include="..\Shaders\textured.vert" />
+    <None Include="..\Shaders\textured.frag" />
+    <None Include="..\Shaders\tonemap.vert" />
+    <None Include="..\Shaders\tonemap.frag" />
   </ItemGroup>
   <Import Project="..\Cineris.props" />
   <ItemGroup><ProjectReference Include="..\Engine\Cineris.vcxproj"><Project>{AB8F1C6C-0A48-40DB-A5DC-16FE574505AC}</Project></ProjectReference></ItemGroup>
