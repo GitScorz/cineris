@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <CinerisRoot>$(MSBuildThisFileDirectory)</CinerisRoot>
+    <CinerisAssimpName Condition="'$(Configuration)'=='Debug'">assimp-vc145-mtd</CinerisAssimpName>
+    <CinerisAssimpName Condition="'$(Configuration)'!='Debug'">assimp-vc145-mt</CinerisAssimpName>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(CinerisRoot)Engine\include;$(CinerisRoot)Dependencies\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>$(CinerisRoot)Dependencies\lib\$(Configuration);$(CinerisRoot)Dependencies\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>$(CinerisAssimpName).lib;glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <Target Name="CopyCinerisRuntime" AfterTargets="Build" Condition="'$(ConfigurationType)'=='Application'">
+    <Copy SourceFiles="$(CinerisRoot)Dependencies\bin\$(Configuration)\$(CinerisAssimpName).dll" DestinationFolder="$(OutDir)" SkipUnchangedFiles="true" />
+  </Target>
+</Project>

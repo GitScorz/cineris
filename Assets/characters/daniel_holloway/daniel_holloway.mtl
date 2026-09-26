@@ -1,0 +1,33 @@
+# Blender 4.5.3 LTS MTL File: 'daniel_holloway_anatomy.blend'
+# www.blender.org
+
+newmtl Daniel_Holloway_Diffuse_Final
+Ns 10.000005
+Ka 1.000000 1.000000 1.000000
+Ks 0.150000 0.150000 0.150000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd daniel_diffuse_1024.png
+map_Ke daniel_diffuse_1024.png
+
+newmtl daniel_jacket_v2_material
+Ns 2.500001
+Ka 1.000000 1.000000 1.000000
+Ks 0.080000 0.080000 0.080000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd daniel_jacket_v2_diffuse.png
+
+newmtl daniel_skin_finished_material
+Ns 2.500001
+Ka 1.000000 1.000000 1.000000
+Ks 0.080000 0.080000 0.080000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd daniel_skin_finished_diffuse.png
+

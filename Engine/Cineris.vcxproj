@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64"><Configuration>Debug</Configuration><Platform>x64</Platform></ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64"><Configuration>Release</Configuration><Platform>x64</Platform></ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{AB8F1C6C-0A48-40DB-A5DC-16FE574505AC}</ProjectGuid><ProjectName>Cineris</ProjectName>
+    <RootNamespace>cineris</RootNamespace><WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <VcpkgEnabled>false</VcpkgEnabled>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v145</PlatformToolset><CharacterSet>Unicode</CharacterSet>
+    <UseDebugLibraries>true</UseDebugLibraries>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v145</PlatformToolset><CharacterSet>Unicode</CharacterSet>
+    <UseDebugLibraries>false</UseDebugLibraries>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <Import Project="..\Cineris.Common.props" />
+  <PropertyGroup><LocalDebuggerWorkingDirectory>$(OutDir)</LocalDebuggerWorkingDirectory><DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor></PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)'=='Debug'">
+    <ClCompile><PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions><RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary><Optimization>Disabled</Optimization><DebugInformationFormat>ProgramDatabase</DebugInformationFormat></ClCompile>
+    <Link><SubSystem>Console</SubSystem><GenerateDebugInformation>true</GenerateDebugInformation></Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)'=='Release'">
+    <ClCompile><PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions><RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary><Optimization>MaxSpeed</Optimization><DebugInformationFormat>ProgramDatabase</DebugInformationFormat></ClCompile>
+    <Link><SubSystem>Console</SubSystem><GenerateDebugInformation>true</GenerateDebugInformation></Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="src\Application.cpp" />
+    <ClCompile Include="src\Window.cpp" />
+    <ClCompile Include="src\camera\Camera.cpp" />
+    <ClCompile Include="src\input\Input.cpp" />
+    <ClCompile Include="src\renderer\Mesh.cpp" />
+    <ClCompile Include="src\renderer\Model.cpp" />
+    <ClCompile Include="src\renderer\Renderer.cpp" />
+    <ClCompile Include="src\renderer\Shader.cpp" />
+    <ClCompile Include="src\ui\DebugUI.cpp" />
+    <ClInclude Include="include\cineris\Application.h" />
+    <ClInclude Include="include\cineris\Window.h" />
+    <ClInclude Include="include\cineris\camera\Camera.h" />
+    <ClInclude Include="include\cineris\common\UI.h" />
+    <ClInclude Include="include\cineris\input\Input.h" />
+    <ClInclude Include="include\cineris\math\GLM.h" />
+    <ClInclude Include="include\cineris\renderer\Mesh.h" />
+    <ClInclude Include="include\cineris\renderer\Model.h" />
+    <ClInclude Include="include\cineris\renderer\Renderer.h" />
+    <ClInclude Include="include\cineris\renderer\Shader.h" />
+    <ClInclude Include="include\cineris\ui\DebugUI.h" />
+    <ClCompile Include="..\Dependencies\include\glad\glad.c" />
+    <ClCompile Include="..\Dependencies\include\stb_image\stb_image.cpp" />
+    <ClCompile Include="..\Dependencies\include\imgui\imgui.cpp" />
+    <ClCompile Include="..\Dependencies\include\imgui\imgui_draw.cpp" />
+    <ClCompile Include="..\Dependencies\include\imgui\imgui_tables.cpp" />
+    <ClCompile Include="..\Dependencies\include\imgui\imgui_widgets.cpp" />
+    <ClCompile Include="..\Dependencies\include\imgui\backends\imgui_impl_glfw.cpp" />
+    <ClCompile Include="..\Dependencies\include\imgui\backends\imgui_impl_opengl3.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+</Project>

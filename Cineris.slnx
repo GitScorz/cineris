@@ -1,0 +1,5 @@
+<Solution>
+  <Configurations><Platform Name="x64" /></Configurations>
+  <Project Path="Sandbox/Sandbox.vcxproj" Id="ec91f6e0-471f-4ca8-9173-a0975b9169ce" />
+  <Project Path="Engine/Cineris.vcxproj" Id="ab8f1c6c-0a48-40db-a5dc-16fe574505ac" />
+</Solution>

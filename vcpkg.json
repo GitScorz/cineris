@@ -1,9 +1,0 @@
-{
-  "name": "cineris",
-  "version": "0.0.1",
-  "dependencies": [
-    "assimp",
-    "freetype",
-    "glfw3"
-  ]
-}

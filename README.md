@@ -1,6 +1,9 @@
 # Cineris
 Cineris is the name of the game engine I’m developing for Ashmoor Case. It’s a custom-built engine designed to give me full control over the rendering pipeline, game architecture, and overall development process. Cineris means “ashes” in Latin, for me, the name represents the idea of building something new from previous experiences
 
+
+> **Recent rewrite:** I've been rewriting Cineris recently to give the engine a cleaner foundation, separate it from the game, and focus on graphics development. The rewrite currently targets Windows and Visual Studio.
+
 # Ashmoor Case
 
 Ashmoor Case is my first game development project. A personal journey into the world of game creation.
@@ -23,67 +26,37 @@ If the description above doesn’t fully capture the mood, here are some visual 
 
 | Ambient 1 | Ambient 2 | Main Character |
 |---|---|---|
-| ![ASHMOOR REFERENCE 1](resources/references/image.png) | ![ASHMOOR REFERENCE 2](resources/references/image2.png) | ![ASHMOOR REFERENCE 3](resources/references/image3.png) |
+| ![ASHMOOR REFERENCE 1](Resources/references/image.png) | ![ASHMOOR REFERENCE 2](Resources/references/image2.png) | ![ASHMOOR REFERENCE 3](Resources/references/image3.png) |
 
 > Generated with ChatGPT and used only as visual inspiration.
 
 I plan to create some of the textures, models and also music for this game.
 
 ## Setup
-If you want to build Cineris locally, make sure you have the following installed:
-- Git
-- CMake 4.0 or newer
-- C++20-compatible compiler
 
-Clone the repository together with its submodules:
-```
-git clone --recursive https://github.com/GitScorz/cineris.git
-cd cineris
-```
+The rewrite currently supports **Windows x64**. To build and run it, install:
 
-If you already cloned the repository without submodules, run:
-```
-git submodule update --init --recursive
-```
-Cineris uses vcpkg to install and manage dependencies.
+- **Visual Studio 2026** with the **Desktop development with C++** workload, the **MSVC v145** toolset and a **Windows SDK**.
+- A graphics driver with **OpenGL 4.6** support.
+- Git, if you want to clone the repository.
 
-### macOS
-Bootstrap vcpkg:
-```
-./vendor/vcpkg/bootstrap-vcpkg.sh -disableMetrics
-```
+The required third-party libraries are included in `Dependencies/`. **CMake and vcpkg are not required** to build the engine or Sandbox.
 
-Configure and build the Debug version:
+### Build and run
 
-```
-cmake --preset debug
-cmake --build --preset debug
-```
+1. Clone or download the repository.
+2. Open `Cineris.slnx` in Visual Studio.
+3. Select **Debug | x64** or **Release | x64**.
+4. In Solution Explorer, right-click **Sandbox** and choose **Set as Startup Project**.
+5. Press **F5** to build and run.
 
-For a Release build trade the word "debug" with "release".
+`Cineris` builds as a static library (`Cineris.lib`). `Sandbox` is the executable that uses it to test the engine's graphics.
 
-### Windows
-Bootstrap vcpkg:
+The build automatically copies the required DLLs, shaders and demo assets beside the executable:
 
-```
-.\vendor\vcpkg\bootstrap-vcpkg.bat -disableMetrics
-```
-
-Configure and build the Debug version:
-
-```
-cmake --preset debug
-cmake --build --preset debug
-```
-
-For a Release build trade the word "debug" with "release".
-
-The required dependencies are installed automatically during the first CMake configuration. OpenGL is provided by the operating system and does not need to be installed through vcpkg.
-
-The compiled executable will be placed inside the corresponding build directory:
-```
-build/debug/
-build/release/
+```text
+bin/x64/Debug/Sandbox.exe
+bin/x64/Release/Sandbox.exe
 ```
 
 ## License
@@ -102,4 +75,4 @@ You may not sell this project, sell modified versions, include it in paid produc
 
 I’m not completely happy with how this scene looks yet. The basic layout, textures, water, and lighting are in place, but the screenshot still feels darker and less atmospheric than what I have in mind. 
 It’s a start, but I’ll need to keep working on the lighting, composition, and overall mood until it feels closer to the vision for Ashmoor Case.
-![First screenshot lol](journey/june_15_2026.png)
+![First screenshot lol](Journey/june_15_2026.png)

@@ -1,58 +1,44 @@
-# Prerequisites
-*.d
+# Visual Studio: caches and per-user settings
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.VC.db
+*.VC.db-shm
+*.VC.db-wal
+*.VC.opendb
+ipch/
 
-# Compiled Object files
-*.slo
-*.lo
-*.o
-*.obj
+# Build output (root-scoped to preserve Dependencies/bin and asset folders)
+/bin/
+/obj/
+/x64/
+/x86/
+/Debug/
+/Release/
+/build/
+/out/
+/Engine/Debug/
+/Engine/Release/
+/Engine/x64/
+/Sandbox/Debug/
+/Sandbox/Release/
+/Sandbox/x64/
 
-# Precompiled Headers
-*.gch
-*.pch
+# Local migration scratch space
+/.migration/
 
-# Linker files
-*.ilk
-
-# Debugger Files
-*.pdb
-
-# Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
-
-# Fortran module files
-*.mod
-*.smod
-
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-*.lib
-
-# Executables
-*.exe
-*.out
-*.app
-
-# debug information files
-*.dwo
-
-# build folder
-build
-vcpkg_installed
-
-# mac stuff
+# Editor backups and OS metadata
+*.tmp
+*.bak
+*.swp
+*~
+*.blend1
+*.blend2
+Thumbs.db
+Desktop.ini
 .DS_Store
 
-# VS Code settings
-.vscode
-
-# CLion
-cmake-build-debug
-
-# Visual Studi
-.vs
-.idea
+# Do not ignore *.obj: Assets contains Wavefront models.
+# Dependencies/**/*.lib and Dependencies/**/*.dll must remain versioned.

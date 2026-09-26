@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Public Headers" />
+    <Filter Include="Source" />
+    <Filter Include="Third Party" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\Application.cpp"><Filter>Source</Filter></ClCompile>
+    <ClCompile Include="src\Window.cpp"><Filter>Source</Filter></ClCompile>
+    <ClCompile Include="src\camera\Camera.cpp"><Filter>Source</Filter></ClCompile>
+    <ClCompile Include="src\input\Input.cpp"><Filter>Source</Filter></ClCompile>
+    <ClCompile Include="src\renderer\Mesh.cpp"><Filter>Source</Filter></ClCompile>
+    <ClCompile Include="src\renderer\Model.cpp"><Filter>Source</Filter></ClCompile>
+    <ClCompile Include="src\renderer\Renderer.cpp"><Filter>Source</Filter></ClCompile>
+    <ClCompile Include="src\renderer\Shader.cpp"><Filter>Source</Filter></ClCompile>
+    <ClCompile Include="src\ui\DebugUI.cpp"><Filter>Source</Filter></ClCompile>
+    <ClCompile Include="..\Dependencies\include\glad\glad.c"><Filter>Third Party</Filter></ClCompile>
+    <ClCompile Include="..\Dependencies\include\stb_image\stb_image.cpp"><Filter>Third Party</Filter></ClCompile>
+    <ClCompile Include="..\Dependencies\include\imgui\imgui.cpp"><Filter>Third Party</Filter></ClCompile>
+    <ClCompile Include="..\Dependencies\include\imgui\imgui_draw.cpp"><Filter>Third Party</Filter></ClCompile>
+    <ClCompile Include="..\Dependencies\include\imgui\imgui_tables.cpp"><Filter>Third Party</Filter></ClCompile>
+    <ClCompile Include="..\Dependencies\include\imgui\imgui_widgets.cpp"><Filter>Third Party</Filter></ClCompile>
+    <ClCompile Include="..\Dependencies\include\imgui\backends\imgui_impl_glfw.cpp"><Filter>Third Party</Filter></ClCompile>
+    <ClCompile Include="..\Dependencies\include\imgui\backends\imgui_impl_opengl3.cpp"><Filter>Third Party</Filter></ClCompile>
+    <ClInclude Include="include\cineris\Application.h"><Filter>Public Headers</Filter></ClInclude>
+    <ClInclude Include="include\cineris\Window.h"><Filter>Public Headers</Filter></ClInclude>
+    <ClInclude Include="include\cineris\camera\Camera.h"><Filter>Public Headers</Filter></ClInclude>
+    <ClInclude Include="include\cineris\common\UI.h"><Filter>Public Headers</Filter></ClInclude>
+    <ClInclude Include="include\cineris\input\Input.h"><Filter>Public Headers</Filter></ClInclude>
+    <ClInclude Include="include\cineris\math\GLM.h"><Filter>Public Headers</Filter></ClInclude>
+    <ClInclude Include="include\cineris\renderer\Mesh.h"><Filter>Public Headers</Filter></ClInclude>
+    <ClInclude Include="include\cineris\renderer\Model.h"><Filter>Public Headers</Filter></ClInclude>
+    <ClInclude Include="include\cineris\renderer\Renderer.h"><Filter>Public Headers</Filter></ClInclude>
+    <ClInclude Include="include\cineris\renderer\Shader.h"><Filter>Public Headers</Filter></ClInclude>
+    <ClInclude Include="include\cineris\ui\DebugUI.h"><Filter>Public Headers</Filter></ClInclude>
+  </ItemGroup>
+</Project>
